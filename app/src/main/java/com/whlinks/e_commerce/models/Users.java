@@ -3,7 +3,7 @@ package com.whlinks.e_commerce.models;
 public class Users {
     String email, password, fName, lName, phone, gender;
 
-    Users(String email.String password, String fName, String lName, String phone, String gender) {
+    Users(String email,String password, String fName, String lName, String phone, String gender) {
         this.email = email;
         this.password = password;
         this.fName = fName;
