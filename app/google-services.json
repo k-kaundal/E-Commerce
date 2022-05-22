@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "603332936324",
+    "project_id": "whpro6633",
+    "storage_bucket": "whpro6633.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:603332936324:android:188cc42620680c45bdb8d1",
+        "android_client_info": {
+          "package_name": "com.whlinks.e_commerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "603332936324-l3eoce5h4tba38urft1hjhejl1dbi46f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.whlinks.e_commerce",
+            "certificate_hash": "97775bcf24847b926eed3e116040bf4620178b72"
+          }
+        },
+        {
+          "client_id": "603332936324-acc5vvolefu5eocge839bdjkpgqb6krn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-2Hdnhyn8Dh_0rYwtYQB3x2YbyDbgRVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "603332936324-acc5vvolefu5eocge839bdjkpgqb6krn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "603332936324-7mbh5edumk6c0jq21skrsebsccq9n48p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.whpro.whpro"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:603332936324:android:bd3d214edf206643bdb8d1",
+        "android_client_info": {
+          "package_name": "com.whpro.whpro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "603332936324-acc5vvolefu5eocge839bdjkpgqb6krn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-2Hdnhyn8Dh_0rYwtYQB3x2YbyDbgRVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "603332936324-acc5vvolefu5eocge839bdjkpgqb6krn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "603332936324-7mbh5edumk6c0jq21skrsebsccq9n48p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.whpro.whpro"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
