@@ -1,11 +1,10 @@
 package com.whlinks.e_commerce.models;
 
 public class Users {
-    String email, password, fName, lName, phone, gender;
+    String email, fName, lName, phone, gender;
 
-    Users(String email,String password, String fName, String lName, String phone, String gender) {
+    public  Users(String email, String fName, String lName, String phone, String gender) {
         this.email = email;
-        this.password = password;
         this.fName = fName;
         this.lName = lName;
         this.phone = phone;
@@ -28,9 +27,6 @@ public class Users {
         this.lName = lName;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public void setPhone(String phone) {
         this.phone = phone;
@@ -52,9 +48,6 @@ public class Users {
         return lName;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
     public String getPhone() {
         return phone;

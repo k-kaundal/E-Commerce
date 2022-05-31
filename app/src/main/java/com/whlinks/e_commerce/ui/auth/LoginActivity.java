@@ -14,10 +14,11 @@ import com.whlinks.e_commerce.service.CommonDBCall;
 import com.whlinks.e_commerce.utils.Validations;
 
 public class LoginActivity extends AppCompatActivity {
-TextInputEditText email, password;
-Button login;
-TextView register;
-CommonDBCall commonDBCall = new CommonDBCall();
+    TextInputEditText email, password;
+    Button login;
+    TextView register;
+    CommonDBCall commonDBCall = new CommonDBCall();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,14 +35,15 @@ CommonDBCall commonDBCall = new CommonDBCall();
                 String emailText = email.getText().toString().trim();
                 String passwordText = password.getText().toString().trim();
 
-                if(!Validations.isValidEmail(emailText)){
-                   email.setError("Enter valid email");
-                   return;
-                }else if(!Validations.isValidPassword(passwordText)){
+                if (!Validations.isValidEmail(emailText)) {
+                    email.setError("Enter valid email");
+                    return;
+                } else if (!Validations.isValidPassword(passwordText)) {
                     password.setError("Enter valid pasword");
                     return;
-                }else{
-                    commonDBCall.login(emailText,passwordText,LoginActivity.this);
+                } else {
+                    commonDBCall.login(emailText, passwordText, LoginActivity.this);
+                    finish();
                 }
             }
         });
