@@ -39,10 +39,14 @@
             android:layout_marginTop="-20dp"
             android:text="Enter your details for registration" />
 
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_below="@id/register_background_image">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/register_background_image"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="40dp"
             android:layout_marginRight="20dp"
@@ -162,8 +166,9 @@
                 android:layout_height="wrap_content"
                 android:text="Register" />
 
-        </LinearLayout>
 
+        </LinearLayout>
+   </ScrollView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -185,6 +190,7 @@
                 android:text=" Login Now"
                 android:textColor="@color/purple_700" />
         </LinearLayout>
+
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
