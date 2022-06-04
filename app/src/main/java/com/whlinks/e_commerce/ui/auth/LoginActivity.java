@@ -16,7 +16,7 @@ import com.whlinks.e_commerce.utils.Validations;
 public class LoginActivity extends AppCompatActivity {
     TextInputEditText email, password;
     Button login;
-    TextView register;
+    TextView register, forgotpassword;
     CommonDBCall commonDBCall = new CommonDBCall();
 
     @Override
@@ -27,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         login = findViewById(R.id.login);
         register = findViewById(R.id.register);
+        forgotpassword = findViewById(R.id.forgotpassword);
 
 
         login.setOnClickListener(new View.OnClickListener() {
@@ -39,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
                     email.setError("Enter valid email");
                     return;
                 } else if (!Validations.isValidPassword(passwordText)) {
-                    password.setError("Enter valid pasword");
+                    password.setError("Enter valid password");
                     return;
                 } else {
                     commonDBCall.login(emailText, passwordText, LoginActivity.this);
@@ -53,6 +54,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        forgotpassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
                 startActivity(intent);
             }
         });
