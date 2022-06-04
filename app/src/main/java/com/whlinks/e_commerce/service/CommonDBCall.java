@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.whlinks.e_commerce.models.Users;
+import com.whlinks.e_commerce.ui.auth.HomeActivity;
 import com.whlinks.e_commerce.ui.user.UserHomeActivity;
 
 public class CommonDBCall {
@@ -35,7 +36,7 @@ public class CommonDBCall {
                         firebaseFirestore.collection("User").document(firebaseUser.getUid()).set(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                Intent intent = new Intent(context, UserHomeActivity.class);
+                                Intent intent = new Intent(context, HomeActivity.class);
                                 context.startActivity(intent);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -68,7 +69,7 @@ public class CommonDBCall {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isComplete()) {
-                    Intent intent = new Intent(context, UserHomeActivity.class);
+                    Intent intent = new Intent(context, HomeActivity.class);
                     context.startActivity(intent);
                 }
             }
