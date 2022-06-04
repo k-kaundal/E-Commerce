@@ -4,7 +4,6 @@
     package="com.whlinks.e_commerce" >
 
     <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -31,10 +30,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.auth.ProfileActivity"
-            android:exported="false">
         </activity>
         <activity
             android:name=".ui.auth.ForgotPasswordActivity"
