@@ -68,6 +68,7 @@ public class HomeActivity extends AppCompatActivity {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 switch (item.getItemId()) {
                     case home:
+
                         fragmentManager.
                                 beginTransaction().replace(frame, new HomeFragment()).commit();
                         break;
