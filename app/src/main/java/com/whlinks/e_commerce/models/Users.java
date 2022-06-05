@@ -1,7 +1,7 @@
 package com.whlinks.e_commerce.models;
 
 public class Users {
-    String email, fName, lName, phone, gender;
+ private  String email, fName, lName, phone, gender;
 
     public  Users(String email, String fName, String lName, String phone, String gender) {
         this.email = email;

@@ -19,6 +19,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.whlinks.e_commerce.R;
 import com.whlinks.e_commerce.ui.auth.LoginActivity;
+import com.whlinks.e_commerce.ui.fragments.AddItemFragment;
+import com.whlinks.e_commerce.ui.fragments.AllItemFragment;
 import com.whlinks.e_commerce.ui.fragments.HomeFragment;
 import com.whlinks.e_commerce.ui.fragments.ProfileFragment;
 
@@ -66,10 +68,19 @@ public class HomeActivity extends AppCompatActivity {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 switch (item.getItemId()) {
                     case home:
-
                         fragmentManager.
                                 beginTransaction().replace(frame, new HomeFragment()).commit();
                         break;
+                    case allitems:
+                        fragmentManager.
+                                beginTransaction().replace(frame, new AllItemFragment()).commit();
+                        break;
+                    case additem:
+                        fragmentManager.
+                                beginTransaction().replace(frame, new AddItemFragment()).commit();
+                        break;
+                        case upda
+
                     case profile:
                         fragmentManager.
                                 beginTransaction().replace(frame, new ProfileFragment()).commit();
