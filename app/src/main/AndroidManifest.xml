@@ -23,7 +23,7 @@
             android:name=".ui.user.UserHomeActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.auth.HomeActivity"
+            android:name=".ui.HomeActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

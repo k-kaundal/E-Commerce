@@ -14,8 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.whlinks.e_commerce.models.Users;
-import com.whlinks.e_commerce.ui.auth.HomeActivity;
-import com.whlinks.e_commerce.ui.user.UserHomeActivity;
+import com.whlinks.e_commerce.ui.HomeActivity;
 
 public class CommonDBCall {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();

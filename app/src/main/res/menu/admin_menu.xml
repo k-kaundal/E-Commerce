@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/home"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="Home" />
+    <item android:id="@+id/allitems"
+android:icon="@drawable/ic_baseline_all_inclusive_24"
+        android:title="All Items"/>
+    <item android:id="@+id/additem"
+android:icon="@drawable/ic_baseline_add_circle_outline_24"
+        android:title="Add Item"/>
+
+    <item android:id="@+id/profile"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="Profile" />
+    <item android:id="@+id/logout"
+        android:icon="@drawable/ic_baseline_power_settings_new_24"
+        android:title="Log out" />
+</menu>

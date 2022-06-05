@@ -1,4 +1,4 @@
-package com.whlinks.e_commerce.ui.auth;
+package com.whlinks.e_commerce.ui;
 
 import static com.whlinks.e_commerce.R.id.*;
 
@@ -9,18 +9,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.whlinks.e_commerce.R;
-import com.whlinks.e_commerce.R.id;
+import com.whlinks.e_commerce.ui.auth.LoginActivity;
 import com.whlinks.e_commerce.ui.fragments.HomeFragment;
 import com.whlinks.e_commerce.ui.fragments.ProfileFragment;
 
@@ -36,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         if(FirebaseAuth.getInstance().getCurrentUser()==null){
-            Intent intent = new Intent(HomeActivity.this,LoginActivity.class);
+            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         }
