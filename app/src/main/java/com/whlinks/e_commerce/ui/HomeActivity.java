@@ -23,6 +23,7 @@ import com.whlinks.e_commerce.ui.fragments.AddItemFragment;
 import com.whlinks.e_commerce.ui.fragments.AllItemFragment;
 import com.whlinks.e_commerce.ui.fragments.HomeFragment;
 import com.whlinks.e_commerce.ui.fragments.ProfileFragment;
+import com.whlinks.e_commerce.ui.fragments.UpdateItemFragment;
 
 import java.util.Objects;
 
@@ -79,7 +80,10 @@ public class HomeActivity extends AppCompatActivity {
                         fragmentManager.
                                 beginTransaction().replace(frame, new AddItemFragment()).commit();
                         break;
-                        case upda
+                    case updateitem:
+                        fragmentManager.
+                                beginTransaction().replace(frame, new UpdateItemFragment()).commit();
+                        break;
 
                     case profile:
                         fragmentManager.
