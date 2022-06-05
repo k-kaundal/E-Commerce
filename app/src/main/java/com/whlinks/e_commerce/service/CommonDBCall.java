@@ -2,6 +2,7 @@ package com.whlinks.e_commerce.service;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,9 +14,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.whlinks.e_commerce.models.Item;
 import com.whlinks.e_commerce.models.Users;
 import com.whlinks.e_commerce.ui.HomeActivity;
+
+import java.io.File;
 
 public class CommonDBCall {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -83,7 +88,7 @@ public class CommonDBCall {
     }
 
 
-    public void addItem(String name , Strign description, String price, Context context){
+    public void addItem(String name , String description, String price, Context context){
         firebaseUser = mAuth.getCurrentUser();
         if(firebaseUser!=null) {
 item = Item(item,description,price,"");
