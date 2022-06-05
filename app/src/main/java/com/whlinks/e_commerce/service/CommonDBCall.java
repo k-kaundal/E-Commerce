@@ -2,30 +2,40 @@ package com.whlinks.e_commerce.service;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.whlinks.e_commerce.models.Item;
 import com.whlinks.e_commerce.models.Users;
 import com.whlinks.e_commerce.ui.HomeActivity;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.Objects;
 
 public class CommonDBCall {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser firebaseUser;
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    FirebaseStorage storage;
+    StorageReference storageRef ;
     Users users;
     Item item;
 
@@ -88,10 +98,12 @@ public class CommonDBCall {
     }
 
 
-    public void addItem(String name , String description, String price, Context context){
+    public void addItem(String name , String description, String price, Context context, ImageView imageView){
+
         firebaseUser = mAuth.getCurrentUser();
         if(firebaseUser!=null) {
-item = Item(item,description,price,"");
+            uploadImage(imageView);
+            item = Item(item,description,price,"");
             firebaseFirestore.collection("Items").document(firebaseUser.getUid()).set(item).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
@@ -107,9 +119,19 @@ item = Item(item,description,price,"");
         }
     }
 // Upload Image to Firebase Storage
-    public void uploadImage(){
+    public void uploadImage(ImageView imageView){
         Uri file = Uri.fromFile(new File("path/to/images/rivers.jpg"));
+        storageRef = storage.getReference();
         StorageReference riversRef = storageRef.child("images/"+file.getLastPathSegment());
+        StorageReference mountainsRef = storageRef.child("mountains.jpg");
+        // Get the data from an ImageView as bytes
+        imageView.setDrawingCacheEnabled(true);
+        imageView.buildDrawingCache();
+        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+        UploadTask uploadTask =  mountainsRef.putBytes(data);
         uploadTask = riversRef.putFile(file);
 
 // Register observers to listen for when the download is done or if it fails
@@ -131,11 +153,11 @@ item = Item(item,description,price,"");
             @Override
             public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
                 if (!task.isSuccessful()) {
-                    throw task.getException();
+                    throw Objects.requireNonNull(task.getException());
                 }
 
                 // Continue with the task to get the download URL
-                return ref.getDownloadUrl();
+                return riversRef.getDownloadUrl();
             }
         }).addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -51,7 +52,7 @@ public class AddItemFragment extends Fragment {
                 } else if (price.isEmpty()) {
                     itemPrice.setError("Enter item price");
                 } else {
-                    commonDBCall.addItem(name, description, price, getActivity());
+                    commonDBCall.addItem(name, description, price, getActivity(),itemImage);
                 }
             }
         });
