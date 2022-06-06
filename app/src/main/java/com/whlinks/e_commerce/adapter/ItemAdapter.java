@@ -21,27 +21,26 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     List<Item> itemList;
     private Context context;
 
-public  ItemAdapter(List<Item> itemList , Context context){
-    this.itemList = itemList;
-    this.context = context;
-}
+    public ItemAdapter(List<Item> itemList, Context context) {
+        this.itemList = itemList;
+        this.context = context;
+    }
 
 
     @NonNull
     @Override
     public ItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ItemAdapter.ViewHolder holder, int position) {
-    holder.itemImage.setImageURI(Uri.parse(itemList.get(position).getImage()));
-    holder.itemtxt.setText(itemList.get(position).getName());
-    holder.itemPrice.setText(itemList.get(position).getPrice());
-    holder.itemDesc.setText(itemList.get(position).getDescripton());
-
+        holder.itemImage.setImageURI(Uri.parse(itemList.get(position).getImage()));
+        holder.itemtxt.setText(itemList.get(position).getName());
+        holder.itemPrice.setText(itemList.get(position).getPrice());
+        holder.itemDesc.setText(itemList.get(position).getDescripton());
     }
 
     @Override
@@ -57,13 +56,11 @@ public  ItemAdapter(List<Item> itemList , Context context){
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            itemImage=itemView.findViewById(R.id.itemImg);
-            itemtxt=itemView.findViewById(R.id.itemName);
-            itemDesc= itemView.findViewById(R.id.itemDesc);
+            itemImage = itemView.findViewById(R.id.itemImg);
+            itemtxt = itemView.findViewById(R.id.itemName);
+            itemDesc = itemView.findViewById(R.id.itemDesc);
             itemPrice = itemView.findViewById(R.id.itemPrice);
-            linearLayout=itemView.findViewById(R.id.layout_id);
-
+            linearLayout = itemView.findViewById(R.id.layout_id);
         }
     }
 }

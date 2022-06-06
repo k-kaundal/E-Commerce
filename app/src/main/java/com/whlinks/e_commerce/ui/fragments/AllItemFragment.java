@@ -13,16 +13,20 @@ import android.view.ViewGroup;
 import com.whlinks.e_commerce.R;
 import com.whlinks.e_commerce.adapter.ItemAdapter;
 import com.whlinks.e_commerce.models.Item;
+import com.whlinks.e_commerce.service.CommonDBCall;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AllItemFragment extends Fragment {
 
+
     public AllItemFragment() {
         // Required empty public constructor
     }
+
     RecyclerView recyclerView;
+    CommonDBCall commonDBCall;
     List<Item> itemList;
 
 
@@ -32,26 +36,32 @@ public class AllItemFragment extends Fragment {
 
     }
 
+    @Override
+    public void onStart() {
+        commonDBCall = new CommonDBCall();
+        commonDBCall.getAllItems();
+        super.onStart();
 
-    private  List<Item> initData(){
-        itemList = new ArrayList<>();
-
-
-
-        return itemList;
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_all_item, container, false);
-        recyclerView = view.findViewById(R.id.layout_id);
+        recyclerView = view.findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        itemList = new ArrayList<>();
+        for (int i = 0; i <= commonDBCall.itemList.size(); i++) {
+//                    new Item(itemList[i].getData())
+            System.out.println(commonDBCall.itemList.get(i).get("name"));
+            itemList.add(new Item(commonDBCall.itemList.get(i).get("name").toString(), commonDBCall.itemList.get(i).get("descripton").toString(), commonDBCall.itemList.get(i).get("price").toString(), commonDBCall.itemList.get(i).get("image").toString()));
+            System.out.println(commonDBCall.itemList);
 
-        recyclerView.setAdapter(new ItemAdapter(initData(),getContext()));
-
+        }
+        recyclerView.setAdapter(new ItemAdapter(itemList, getContext()));
 
         return view;
     }
