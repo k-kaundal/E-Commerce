@@ -41,7 +41,7 @@ public class UserHomeActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         if(FirebaseAuth.getInstance().getCurrentUser()==null){
-            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+            Intent intent = new Intent(UserHomeActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         }
@@ -59,7 +59,7 @@ public class UserHomeActivity extends AppCompatActivity {
         drawerLayout = findViewById(drawer);
         setSupportActionBar(toolbar);
         navigationView = findViewById(navigation);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(HomeActivity.this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(UserHomeActivity.this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         actionBarDrawerToggle.syncState();
@@ -85,7 +85,7 @@ public class UserHomeActivity extends AppCompatActivity {
                         break;
                     case logout:
                         FirebaseAuth.getInstance().signOut();
-                        Intent intent = new Intent(HomeActivity.this,LoginActivity.class);
+                        Intent intent = new Intent(UserHomeActivity.this,LoginActivity.class);
                         startActivity(intent);
                         finish();
                     default:

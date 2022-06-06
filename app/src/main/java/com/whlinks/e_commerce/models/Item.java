@@ -6,7 +6,7 @@ public class Item {
         this.descripton = descripton;
         this.name = name;
         this.price= price;
-        this.image= image
+        this.image= image;
     }
 
     public String getDescripton() {
