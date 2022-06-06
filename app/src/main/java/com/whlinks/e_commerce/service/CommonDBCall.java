@@ -101,7 +101,7 @@ public class CommonDBCall {
     public void addItem(String name , String description, String price, Context context, ImageView imageView){
         firebaseUser = mAuth.getCurrentUser();
         if(firebaseUser!=null) {
-            uploadImage(imageView);
+//            uploadImage(imageView);
             item = new Item(name,description,price,"");
             firebaseFirestore.collection("Items").document(firebaseUser.getUid()).set(item).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
@@ -120,6 +120,7 @@ public class CommonDBCall {
 // Upload Image to Firebase Storage
     public void uploadImage(ImageView imageView){
         Uri file = Uri.fromFile(new File("path/to/images/rivers.jpg"));
+        storage = FirebaseStorage.getInstance();
         storageRef = storage.getReference();
         StorageReference riversRef = storageRef.child("images/"+file.getLastPathSegment());
         StorageReference mountainsRef = storageRef.child("mountains.jpg");
