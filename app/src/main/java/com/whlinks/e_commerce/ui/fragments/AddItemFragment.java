@@ -39,7 +39,6 @@ public class AddItemFragment extends Fragment {
     }
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +52,7 @@ public class AddItemFragment extends Fragment {
         itemName = view.findViewById(R.id.name);
         itemDescription = view.findViewById(R.id.description);
         itemPrice = view.findViewById(R.id.price);
-        add = view.findViewById(R.id.additem);
+        add = view.findViewById(R.id.ad);
         commonDBCall = new CommonDBCall();
 
 
@@ -71,7 +70,7 @@ public class AddItemFragment extends Fragment {
 //                imageDownload.putExtra("outputY", 200);
 //                imageDownload.putExtra("return-data", true);
 //               getActivity().startActivityForResult(imageDownload, GALLERY_REQUEST_CODE);
-selectImage();
+                selectImage();
 
 //                file = Uri.fromFile(new File(FILE_PATH));
 
@@ -136,25 +135,21 @@ selectImage();
 //    }
 
     private void selectImage() {
-        final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
+        final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Add Photo!");
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                if (options[item].equals("Take Photo"))
-                {
+                if (options[item].equals("Take Photo")) {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-                    startActivityForResult(intent, 1);
-                }
-                else if (options[item].equals("Choose from Gallery"))
-                {
-//                    Intent intent = new   Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                    getActivity().startActivityForResult(intent, 2);
-                }
-                else if (options[item].equals("Cancel")) {
+                    getActivity().startActivityForResult(intent, 1);
+                } else if (options[item].equals("Choose from Gallery")) {
+                    Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    getActivity().startActivityForResult(intent, 2);
+                } else if (options[item].equals("Cancel")) {
                     dialog.dismiss();
                 }
             }
