@@ -17,5 +17,7 @@ TextView name , email, phone;
         email = findViewById(R.id.email);
         phone  = findViewById(R.id.phone);
 
+
+
     }
 }

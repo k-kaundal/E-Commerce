@@ -41,6 +41,12 @@ public class LatestItemAdapter extends RecyclerView.Adapter<LatestItemAdapter.Vi
         holder.itemtxt.setText(itemList.get(position).getName());
         holder.itemPrice.setText(itemList.get(position).getPrice());
         holder.itemDesc.setText(itemList.get(position).getDescripton());
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override

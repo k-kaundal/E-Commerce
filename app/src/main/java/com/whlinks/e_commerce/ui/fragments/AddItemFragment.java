@@ -26,6 +26,7 @@ import com.whlinks.e_commerce.ui.auth.ForgotPasswordActivity;
 import com.whlinks.e_commerce.ui.auth.LoginActivity;
 
 import java.io.File;
+import java.util.Objects;
 
 
 public class AddItemFragment extends Fragment {
@@ -151,6 +152,7 @@ public class AddItemFragment extends Fragment {
                     File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
                     getActivity().startActivityForResult(intent, 1);
+//                    getActivity().startActivityFromFragment(AddItemFragment(),intent,1);
                 } else if (options[item].equals("Choose from Gallery")) {
                     Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     getActivity().startActivityForResult(intent, 2);
@@ -161,87 +163,6 @@ public class AddItemFragment extends Fragment {
         });
         builder.show();
     }
-
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == RESULT_OK) {
-//            if (requestCode == 1) {
-//                File f = new File(Environment.getExternalStorageDirectory().toString());
-//                for (File temp : f.listFiles()) {
-//                    if (temp.getName().equals("temp.jpg")) {
-//                        f = temp;
-//                        break;
-//                    }
-//                }
-//                try {
-//                    Bitmap bitmap;
-//                    BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-//                    bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(), bitmapOptions);
-//                    bitmap=getResizedBitmap(bitmap, 400);
-//                    IDProf.setImageBitmap(bitmap);
-//                    BitMapToString(bitmap);
-//                    String path = android.os.Environment
-//                            .getExternalStorageDirectory()
-//                            + File.separator
-//                            + "Phoenix" + File.separator + "default";
-//                    f.delete();
-//                    OutputStream outFile = null;
-//                    File file = new File(path, String.valueOf(System.currentTimeMillis()) + ".jpg");
-//                    try {
-//                        outFile = new FileOutputStream(file);
-//                        bitmap.compress(Bitmap.CompressFormat.JPEG, 85, outFile);
-//                        outFile.flush();
-//                        outFile.close();
-//                    } catch (FileNotFoundException e) {
-//                        e.printStackTrace();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            } else if (requestCode == 2) {
-//                Uri selectedImage = data.getData();
-//                String[] filePath = { MediaStore.Images.Media.DATA };
-//                Cursor c = getContentResolver().query(selectedImage,filePath, null, null, null);
-//                c.moveToFirst();
-//                int columnIndex = c.getColumnIndex(filePath[0]);
-//                String picturePath = c.getString(columnIndex);
-//                c.close();
-//                Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
-//                thumbnail=getResizedBitmap(thumbnail, 400);
-//                Log.w("path of image from gallery......******************.........", picturePath+"");
-//                IDProf.setImageBitmap(thumbnail);
-//                BitMapToString(thumbnail);
-//            }
-//        }
-//    }
-//    public String BitMapToString(Bitmap userImage1) {
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        userImage1.compress(Bitmap.CompressFormat.PNG, 60, baos);
-//        byte[] b = baos.toByteArray();
-//        Document_img1 = Base64.encodeToString(b, Base64.DEFAULT);
-//        return Document_img1;
-//    }
-//
-//    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
-//        int width = image.getWidth();
-//        int height = image.getHeight();
-//
-//        float bitmapRatio = (float)width / (float) height;
-//        if (bitmapRatio > 1) {
-//            width = maxSize;
-//            height = (int) (width / bitmapRatio);
-//        } else {
-//            height = maxSize;
-//            width = (int) (height * bitmapRatio);
-//        }
-//        return Bitmap.createScaledBitmap(image, width, height, true);
-//    }
 
 
 }
