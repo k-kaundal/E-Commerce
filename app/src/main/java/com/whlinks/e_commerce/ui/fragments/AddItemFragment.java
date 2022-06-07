@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -33,6 +34,7 @@ public class AddItemFragment extends Fragment {
     Button add;
     CommonDBCall commonDBCall;
     Uri file;
+    CheckBox addToLatest;
 
     public AddItemFragment() {
         // Required empty public constructor
@@ -53,6 +55,7 @@ public class AddItemFragment extends Fragment {
         itemDescription = view.findViewById(R.id.description);
         itemPrice = view.findViewById(R.id.price);
         add = view.findViewById(R.id.ad);
+        addToLatest = view.findViewById(R.id.addtonew);
         commonDBCall = new CommonDBCall();
 
 
@@ -89,8 +92,10 @@ public class AddItemFragment extends Fragment {
                     itemDescription.setError("Enter item description");
                 } else if (price.isEmpty()) {
                     itemPrice.setError("Enter item price");
-                } else {
-
+                } else if(addToLatest.isChecked()){
+                    commonDBCall.addItem(name, description, price, getActivity(), itemImage);
+                    commonDBCall.addLatestItem(name, description, price, getActivity(), itemImage);
+                }else {
                     commonDBCall.addItem(name, description, price, getActivity(), itemImage);
                 }
             }

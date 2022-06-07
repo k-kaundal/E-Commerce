@@ -43,7 +43,6 @@ public class CommonDBCall {
     StorageReference storageRef;
     Users users;
     Item item;
-   public List<DocumentSnapshot> itemList;
 
     // Registration
     public void register(String email, String password, String fName, String lName, String phone, String gender, Context context) {
@@ -124,18 +123,27 @@ public class CommonDBCall {
         }
     }
 
-    public void getAllItems() {
-        firebaseFirestore.collection("Items").get().addOnCompleteListener(task -> {
-            if (task.isComplete()) {
-                QuerySnapshot queryDocumentSnapshots = task.getResult();
-//                    System.out.println(queryDocumentSnapshots.getDocuments());
-                itemList = queryDocumentSnapshots.getDocuments();
-                System.out.println(itemList);
 
-
-            }
-        });
+    public void addLatestItem(String name, String description, String price, Context context, ImageView imageView) {
+        firebaseUser = mAuth.getCurrentUser();
+        if (firebaseUser != null) {
+//            uploadImage(imageView);
+            item = new Item(name, description, price, "");
+            firebaseFirestore.collection("LatestItems").document(UUID.randomUUID().toString()).set(item).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Intent intent = new Intent(context, HomeActivity.class);
+                    context.startActivity(intent);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, e + "", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
+
 
     // Upload Image to Firebase Storage
     public void uploadImage(ImageView imageView) {

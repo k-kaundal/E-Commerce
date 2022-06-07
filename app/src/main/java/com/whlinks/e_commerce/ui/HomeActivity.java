@@ -22,6 +22,7 @@ import com.whlinks.e_commerce.ui.auth.LoginActivity;
 import com.whlinks.e_commerce.ui.fragments.AddItemFragment;
 import com.whlinks.e_commerce.ui.fragments.AllItemFragment;
 import com.whlinks.e_commerce.ui.fragments.HomeFragment;
+import com.whlinks.e_commerce.ui.fragments.LatestItemFragment;
 import com.whlinks.e_commerce.ui.fragments.ProfileFragment;
 import com.whlinks.e_commerce.ui.fragments.UpdateItemFragment;
 
@@ -59,6 +60,7 @@ public class HomeActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
 
         if (savedInstanceState == null) {
+            setTitle("Home");
             getSupportFragmentManager().
                     beginTransaction().replace(frame, new HomeFragment()).commit();
         }
@@ -69,23 +71,33 @@ public class HomeActivity extends AppCompatActivity {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 switch (item.getItemId()) {
                     case home:
+                        setTitle("Home");
                         fragmentManager.
                                 beginTransaction().replace(frame, new HomeFragment()).commit();
                         break;
+                    case latestitems:
+                        setTitle("Latest Items");
+                        fragmentManager.
+                                beginTransaction().replace(frame, new LatestItemFragment()).commit();
+                        break;
                     case allitems:
+                        setTitle("All Items");
                         fragmentManager.
                                 beginTransaction().replace(frame, new AllItemFragment()).commit();
                         break;
                     case additem:
+                        setTitle("Add Item");
                         fragmentManager.
                                 beginTransaction().replace(frame, new AddItemFragment()).commit();
                         break;
                     case updateitem:
+                        setTitle("Update");
                         fragmentManager.
                                 beginTransaction().replace(frame, new UpdateItemFragment()).commit();
                         break;
 
                     case profile:
+                        setTitle("Profile");
                         fragmentManager.
                                 beginTransaction().replace(frame, new ProfileFragment()).commit();
                         break;

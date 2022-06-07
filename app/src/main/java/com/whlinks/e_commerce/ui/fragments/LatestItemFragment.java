@@ -15,16 +15,19 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.whlinks.e_commerce.R;
 import com.whlinks.e_commerce.adapter.ItemAdapter;
+import com.whlinks.e_commerce.adapter.LatestItemAdapter;
 import com.whlinks.e_commerce.models.Item;
 import com.whlinks.e_commerce.service.CommonDBCall;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllItemFragment extends Fragment {
+
+public class LatestItemFragment extends Fragment {
 
 
-    public AllItemFragment() {
+
+    public LatestItemFragment() {
         // Required empty public constructor
     }
 
@@ -36,6 +39,7 @@ public class AllItemFragment extends Fragment {
     Item item;
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,21 +47,13 @@ public class AllItemFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-
-        super.onStart();
-
-    }
-
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_all_item, container, false);
+        View view = inflater.inflate(R.layout.fragment_latest_item, container, false);
         recyclerView = view.findViewById(R.id.recycler);
 //        itemList1.add(new Item("Demo","Demo","Demo","Demo"));
-        firebaseFirestore.collection("Items").get().addOnCompleteListener(task -> {
+        firebaseFirestore.collection("LatestItems").get().addOnCompleteListener(task -> {
             if (task.isComplete()) {
                 QuerySnapshot queryDocumentSnapshots = task.getResult();
 //                    System.out.println(queryDocumentSnapshots.getDocuments());
@@ -80,13 +76,12 @@ public class AllItemFragment extends Fragment {
                 if (itemList1 == null){
                     System.out.println("No data");
                 }else{
-                    recyclerView.setAdapter(new ItemAdapter(itemList1, getContext()));
+                    recyclerView.setAdapter(new LatestItemAdapter(itemList1, getContext()));
                 }
 
 
             }
         });
-//        System.out.println(itemList1.size());
 
 
         return view;

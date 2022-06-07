@@ -6,6 +6,9 @@
     <item android:id="@+id/allitems"
 android:icon="@drawable/ic_baseline_all_inclusive_24"
         android:title="All Items"/>
+    <item android:id="@+id/latestitems"
+        android:icon="@drawable/ic_baseline_all_inclusive_24"
+        android:title="Latest Items"/>
     <item android:id="@+id/additem"
 android:icon="@drawable/ic_baseline_add_circle_outline_24"
         android:title="Add Item"/>
