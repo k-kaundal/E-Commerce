@@ -41,7 +41,7 @@ public class CommonDBCall {
                 if (task.isComplete()) {
                     firebaseUser = mAuth.getCurrentUser();
                     if (firebaseUser != null) {
-                        users = new Users(email, fName, lName, phone, gender,imageUrl);
+                        users = new Users(email, fName, lName, phone, gender,imageUrl,1);
                         firebaseFirestore.collection("User").document(firebaseUser.getUid()).set(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {

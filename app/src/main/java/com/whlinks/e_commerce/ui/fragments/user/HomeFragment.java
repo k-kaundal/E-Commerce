@@ -58,17 +58,19 @@ public class HomeFragment extends Fragment {
     public class The_slide_timer extends TimerTask {
         @Override
         public void run() {
-
+            try {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (page.getCurrentItem()< listItems.size()-1) {
-                        page.setCurrentItem(page.getCurrentItem()+1);
-                    }
-                    else
+                    if (page.getCurrentItem() < listItems.size() - 1) {
+                        page.setCurrentItem(page.getCurrentItem() + 1);
+                    } else
                         page.setCurrentItem(0);
                 }
             });
+        }catch (Exception e){
+                System.out.println(e);
+            }
         }
     }
     @Override
