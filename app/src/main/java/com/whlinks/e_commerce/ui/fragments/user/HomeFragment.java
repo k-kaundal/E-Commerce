@@ -19,6 +19,7 @@ import com.whlinks.e_commerce.R;
 import com.whlinks.e_commerce.adapter.ItemAdapter;
 import com.whlinks.e_commerce.adapter.LatestItemAdapter;
 import com.whlinks.e_commerce.adapter.The_Slide_items_Pager_Adapter;
+import com.whlinks.e_commerce.adapter.TopItemAdapter;
 import com.whlinks.e_commerce.models.Item;
 import com.whlinks.e_commerce.models.The_Slide_Items_Model_Class;
 import com.whlinks.e_commerce.service.CommonDBCall;
@@ -35,12 +36,14 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
     }
 
-    RecyclerView recyclerViewlatest, recyclerViewall;
+    RecyclerView recyclerViewlatest, recyclerViewall,recyclerViewTop;
     CommonDBCall commonDBCall = new CommonDBCall();
     List<Item> itemList1;
     List<Item> itemList2;
+    List<Item> topItem;
     List<DocumentSnapshot> itemList;
     List<DocumentSnapshot> itemList3;
+    List<DocumentSnapshot> topItemDoc;
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     Item item;
     private List<The_Slide_Items_Model_Class> listItems;
@@ -82,6 +85,7 @@ public class HomeFragment extends Fragment {
 
         recyclerViewlatest = view.findViewById(R.id.latestitemrecyc);
         recyclerViewall = view.findViewById(R.id.allitemsrecyc);
+        recyclerViewTop = view.findViewById(R.id.recyclerViewTop);
         page = view.findViewById(R.id.my_pager) ;
         tabLayout = view.findViewById(R.id.my_tablayout);
 
@@ -101,6 +105,36 @@ public class HomeFragment extends Fragment {
         tabLayout.setupWithViewPager(page,true);
 
 
+
+        firebaseFirestore.collection("TopItems").get().addOnCompleteListener(task -> {
+            if (task.isComplete()) {
+                QuerySnapshot queryDocumentSnapshots = task.getResult();
+//                    System.out.println(queryDocumentSnapshots.getDocuments());
+                topItemDoc = queryDocumentSnapshots.getDocuments();
+//                System.out.println(itemList);
+//                itemList1 = new ArrayList<>();
+//                itemList1.add(new Item("Demo","Demo","Demo","Demo"));
+                topItem = new ArrayList<>();
+                for (int i = 0; i < task.getResult().size(); i++) {
+//                    new Item(itemList[i].getData());
+                    System.out.println(topItemDoc.get(i).getData().get("name"));
+
+                    topItem.add(new Item(topItemDoc.get(i).getData().get("name").toString(), topItemDoc.get(i).getData().get("descripton").toString(), topItemDoc.get(i).getData().get("price").toString(), topItemDoc.get(i).getData().get("image").toString(), topItemDoc.get(i).getData().get("doc_id").toString()));
+//
+//                   itemList1.add(itemList.get(i).getData());
+                    System.out.println(topItemDoc.get(i).getData().get("name"));
+                }
+//                recyclerViewTop.setHasFixedSize(true);
+                recyclerViewTop.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+                if (topItem == null) {
+                    System.out.println("No data");
+                } else {
+                    recyclerViewTop.setAdapter(new TopItemAdapter(topItem, getContext()));
+                }
+//                recyclerViewlatest.setAdapter(new ItemAdapter(itemList1, getContext()));
+
+            }
+        });
 
 //        itemList1.add(new Item("Demo","Demo","Demo","Demo"));
         firebaseFirestore.collection("LatestItems").get().addOnCompleteListener(task -> {

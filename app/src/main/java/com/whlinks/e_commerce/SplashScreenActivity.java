@@ -37,11 +37,11 @@ public class SplashScreenActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             DocumentSnapshot documentSnapshots = task.getResult();
                             userType = Integer.parseInt(documentSnapshots.get("userType").toString());
-                            if (userType == 0) {
+                            if (userType == 1) {
                                 Intent intent = new Intent(SplashScreenActivity.this, UserHomeActivity.class);
                                 startActivity(intent);
                                 finish();
-                            } else if (userType == 1) {
+                            } else if (userType == 0) {
                                 Intent intent = new Intent(SplashScreenActivity.this, HomeActivity.class);
                                 startActivity(intent);
                                 finish();

@@ -40,7 +40,7 @@ public class AddItemFragment extends Fragment {
     Button add;
     CommonDBCall commonDBCall;
     Uri file;
-    CheckBox addToLatest;
+    CheckBox addToLatest, addToTop;
     String imageUrl = "";
     private static final int IMAGE_REQUEST = 1;
     private Uri imageUri;
@@ -68,6 +68,7 @@ public class AddItemFragment extends Fragment {
         itemPrice = view.findViewById(R.id.price);
         add = view.findViewById(R.id.ad);
         addToLatest = view.findViewById(R.id.addtonew);
+        addToTop = view.findViewById(R.id.addtotop);
         commonDBCall = new CommonDBCall();
         storageReference = FirebaseStorage.getInstance();
 
@@ -105,10 +106,17 @@ public class AddItemFragment extends Fragment {
                     itemDescription.setError("Enter item description");
                 } else if (price.isEmpty()) {
                     itemPrice.setError("Enter item price");
+                } else if (addToLatest.isChecked() && addToTop.isChecked()) {
+                    commonDBCall.addItem(name, description, price, getActivity(), itemImage,imageUrl);
+                    commonDBCall.addLatestItem(name, description, price, getActivity(), itemImage,imageUrl);
+                    commonDBCall.addTopItem(name, description, price, getActivity(), itemImage,imageUrl);
                 } else if (addToLatest.isChecked()) {
                     commonDBCall.addItem(name, description, price, getActivity(), itemImage,imageUrl);
                     commonDBCall.addLatestItem(name, description, price, getActivity(), itemImage,imageUrl);
-                } else {
+                }else  if (addToTop.isChecked()) {
+                    commonDBCall.addItem(name, description, price, getActivity(), itemImage,imageUrl);
+                    commonDBCall.addTopItem(name, description, price, getActivity(), itemImage,imageUrl);
+                }else {
                     commonDBCall.addItem(name, description, price, getActivity(), itemImage,imageUrl);
                 }
             }

@@ -5,6 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.fragments.user.HomeFragment">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="280dp"
@@ -39,25 +47,25 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <ScrollView
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Top Items" />
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="250dp">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
+                android:layout_height="match_parent">
+                <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:scrollbars="horizontal"
+                    android:layout_height="match_parent"
+                    android:id="@+id/recyclerViewTop"/>
+            </LinearLayout>
+        </HorizontalScrollView>
+
 
                     <TextView
                         android:layout_width="match_parent"
@@ -69,12 +77,7 @@
                         android:id="@+id/latestitemrecyc"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
-                </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -87,10 +90,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </LinearLayout>
-            </LinearLayout>
-        </ScrollView>
-
-    </LinearLayout>
-
+    </ScrollView>
 
 </LinearLayout>

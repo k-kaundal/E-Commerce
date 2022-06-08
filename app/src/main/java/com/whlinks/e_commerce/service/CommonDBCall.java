@@ -31,7 +31,7 @@ public class CommonDBCall {
     StorageReference storageRef;
     Users users;
     Item item;
-
+    String doc_id = UUID.randomUUID().toString();
     // Registration
     public void register(String email, String password, String fName, String lName, String phone, String gender, Context context, String imageUrl) {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -111,7 +111,7 @@ public class CommonDBCall {
         firebaseUser = mAuth.getCurrentUser();
         if (firebaseUser != null) {
 //            uploadImage(imageView);
-            String doc_id = UUID.randomUUID().toString();
+
             item = new Item(name, description, "Rs "+price, imageUrl, doc_id);
             firebaseFirestore.collection("Items").document(doc_id).set(item).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
@@ -133,9 +133,27 @@ public class CommonDBCall {
         firebaseUser = mAuth.getCurrentUser();
         if (firebaseUser != null) {
 //            uploadImage(imageView);
-            String doc_id = UUID.randomUUID().toString();
             item = new Item(name, description, "Rs "+price, imageUrl, doc_id);
             firebaseFirestore.collection("LatestItems").document(doc_id).set(item).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Intent intent = new Intent(context, HomeActivity.class);
+                    context.startActivity(intent);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, e + "", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+    public void addTopItem(String name, String description, String price, Context context, ImageView imageView, String imageUrl) {
+        firebaseUser = mAuth.getCurrentUser();
+        if (firebaseUser != null) {
+//            uploadImage(imageView);
+            item = new Item(name, description, "Rs "+price, imageUrl, doc_id);
+            firebaseFirestore.collection("TopItems").document(doc_id).set(item).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     Intent intent = new Intent(context, HomeActivity.class);
