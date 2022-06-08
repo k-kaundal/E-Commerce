@@ -1,12 +1,13 @@
 package com.whlinks.e_commerce.models;
 
 public class Item {
-  private String name ,descripton, price, image;
-  public  Item(String name, String descripton, String price, String image){
+  private String name ,descripton, price, image, doc_id;
+  public  Item(String name, String descripton, String price, String image, String doc_id){
         this.descripton = descripton;
         this.name = name;
         this.price= price;
         this.image= image;
+        this.doc_id = doc_id;
     }
 
     public String getDescripton() {
@@ -39,5 +40,13 @@ public class Item {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getDoc_id() {
+        return doc_id;
+    }
+
+    public void setDoc_id(String doc_id) {
+        this.doc_id = doc_id;
     }
 }

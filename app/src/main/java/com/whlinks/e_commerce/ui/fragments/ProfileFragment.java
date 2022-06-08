@@ -20,13 +20,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.whlinks.e_commerce.R;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ProfileFragment extends Fragment {
 
     public ProfileFragment() {
         // Required empty public constructor
     }
 
-    ImageView imageView;
+    CircleImageView imageView;
     TextView name, email, phone;
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
@@ -35,6 +37,7 @@ public class ProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
+        assert user != null;
         firebaseFirestore.collection("User").document(user.getUid().toString()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

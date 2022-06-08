@@ -23,7 +23,6 @@ public class RegisterActivity extends AppCompatActivity {
     CountryCodePicker cc;
     RadioGroup gender;
     RadioButton rd;
-
     CommonDBCall commonDBCall = new CommonDBCall();
 
     @Override
@@ -39,19 +38,28 @@ public class RegisterActivity extends AppCompatActivity {
         phone = findViewById(R.id.phone);
         cc = findViewById(R.id.countryCode);
         gender = findViewById(R.id.gender);
-        int selectedGenderId = gender.getCheckedRadioButtonId();
-        rd = findViewById(selectedGenderId);
+
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int selectedGenderId = gender.getCheckedRadioButtonId();
+                rd = findViewById(selectedGenderId);
+                System.out.println(rd);
                 String emailText = email.getText().toString().trim();
                 String passwordText = password.getText().toString().trim();
                 String fNameText = fName.getText().toString().trim();
                 String lNameText = lName.getText().toString().trim();
                 String phoneText = cc.getSelectedCountryCode() + phone.getText().toString().trim();
-
-
+                String gender = "";
+                if (selectedGenderId == R.id.male) {
+                    System.out.println("Male");
+                    gender = "Male";
+                } else if (selectedGenderId == R.id.female) {
+                    gender = "Female";
+                } else if (selectedGenderId == R.id.other) {
+                    gender = "Other";
+                }
                 if (!Validations.isValidEmail(emailText)) {
                     email.setError("Enter valid email ID");
 //                    email.setFocusable();
@@ -69,12 +77,13 @@ public class RegisterActivity extends AppCompatActivity {
                 } else if (phoneText.isEmpty()) {
                     return;
                 } else {
-                    commonDBCall.register(emailText, passwordText, fNameText, lNameText, phoneText, "Male", RegisterActivity.this);
+
+                    commonDBCall.register(emailText, passwordText, fNameText, lNameText, phoneText, gender, RegisterActivity.this);
                     finish();
                 }
+
             }
         });
-
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override

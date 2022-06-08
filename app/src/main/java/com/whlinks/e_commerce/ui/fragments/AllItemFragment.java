@@ -70,7 +70,7 @@ public class AllItemFragment extends Fragment {
 //                    new Item(itemList[i].getData());
                     System.out.println(itemList.get(i).getData().get("name"));
 
-                    itemList1.add(new Item(itemList.get(i).getData().get("name").toString(), itemList.get(i).getData().get("descripton").toString(), itemList.get(i).getData().get("price").toString(), itemList.get(i).getData().get("image").toString()));
+                    itemList1.add(new Item(itemList.get(i).getData().get("name").toString(), itemList.get(i).getData().get("descripton").toString(), itemList.get(i).getData().get("price").toString(), itemList.get(i).getData().get("image").toString(), itemList.get(i).getData().get("doc_id").toString()));
 //
 //                   itemList1.add(itemList.get(i).getData());
                     System.out.println(itemList.get(i).getData().get("name"));
@@ -80,7 +80,7 @@ public class AllItemFragment extends Fragment {
                 if (itemList1 == null){
                     System.out.println("No data");
                 }else{
-                    recyclerView.setAdapter(new ItemAdapter(itemList1, getContext()));
+                    recyclerView.setAdapter(new ItemAdapter(itemList1, getActivity()));
                 }
 
 

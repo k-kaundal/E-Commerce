@@ -26,7 +26,6 @@ import java.util.List;
 public class LatestItemFragment extends Fragment {
 
 
-
     public LatestItemFragment() {
         // Required empty public constructor
     }
@@ -37,7 +36,6 @@ public class LatestItemFragment extends Fragment {
     List<DocumentSnapshot> itemList;
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     Item item;
-
 
 
     @Override
@@ -66,17 +64,17 @@ public class LatestItemFragment extends Fragment {
 //                    new Item(itemList[i].getData());
                     System.out.println(itemList.get(i).getData().get("name"));
 
-                    itemList1.add(new Item(itemList.get(i).getData().get("name").toString(), itemList.get(i).getData().get("descripton").toString(), itemList.get(i).getData().get("price").toString(), itemList.get(i).getData().get("image").toString()));
+                    itemList1.add(new Item(itemList.get(i).getData().get("name").toString(), itemList.get(i).getData().get("descripton").toString(), itemList.get(i).getData().get("price").toString(), itemList.get(i).getData().get("image").toString(), itemList.get(i).getData().get("doc_id").toString()));
 //
 //                   itemList1.add(itemList.get(i).getData());
                     System.out.println(itemList.get(i).getData().get("name"));
                 }
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                if (itemList1 == null){
+                if (itemList1 == null) {
                     System.out.println("No data");
-                }else{
-                    recyclerView.setAdapter(new LatestItemAdapter(itemList1, getContext()));
+                } else {
+                    recyclerView.setAdapter(new LatestItemAdapter(itemList1, getActivity()));
                 }
 
 

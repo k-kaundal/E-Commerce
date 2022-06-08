@@ -69,7 +69,7 @@ public class HomeFragment extends Fragment {
 //                    new Item(itemList[i].getData());
                     System.out.println(itemList3.get(i).getData().get("name"));
 
-                    itemList2.add(new Item(itemList3.get(i).getData().get("name").toString(), itemList3.get(i).getData().get("descripton").toString(), itemList3.get(i).getData().get("price").toString(), itemList3.get(i).getData().get("image").toString()));
+                    itemList2.add(new Item(itemList3.get(i).getData().get("name").toString(), itemList3.get(i).getData().get("descripton").toString(), itemList3.get(i).getData().get("price").toString(), itemList3.get(i).getData().get("image").toString(), itemList3.get(i).getData().get("doc_id").toString()));
 //
 //                   itemList1.add(itemList.get(i).getData());
                     System.out.println(itemList3.get(i).getData().get("name"));
@@ -100,7 +100,7 @@ public class HomeFragment extends Fragment {
 //                    new Item(itemList[i].getData());
                     System.out.println(itemList.get(i).getData().get("name"));
 
-                    itemList1.add(new Item(itemList.get(i).getData().get("name").toString(), itemList.get(i).getData().get("descripton").toString(), itemList.get(i).getData().get("price").toString(), itemList.get(i).getData().get("image").toString()));
+                    itemList1.add(new Item(itemList.get(i).getData().get("name").toString(), itemList.get(i).getData().get("descripton").toString(), itemList.get(i).getData().get("price").toString(), itemList.get(i).getData().get("image").toString(), itemList.get(i).getData().get("doc_id").toString()));
 //
 //                   itemList1.add(itemList.get(i).getData());
                     System.out.println(itemList.get(i).getData().get("name"));

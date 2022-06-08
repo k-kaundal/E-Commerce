@@ -2,6 +2,7 @@ package com.whlinks.e_commerce.service;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -85,13 +86,29 @@ public class CommonDBCall {
 
     // Login
 
-    public void login(String email, String password, Context context) {
+    public void login(String email, String password, Context context, int save) {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isComplete()) {
+                    // Storing data into SharedPreferences
+                    if (save == 1) {
+                        SharedPreferences sharedPreferences = context.getSharedPreferences("login", Context.MODE_PRIVATE);
+// Creating an Editor object to edit(write to the file)
+                        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+// Storing the key and its value as the data fetched from edittext
+                        myEdit.putString("email", email);
+                        myEdit.putString("password", password);
+// Once the changes have been made,
+// we need to commit to apply those changes made,
+// otherwise, it will throw an error
+                        myEdit.commit();
+                    }
+
                     Intent intent = new Intent(context, HomeActivity.class);
                     context.startActivity(intent);
+
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -103,12 +120,13 @@ public class CommonDBCall {
     }
 
 
-    public void addItem(String name, String description, String price, Context context, ImageView imageView) {
+    public void addItem(String name, String description, String price, Context context, ImageView imageView, String imageUrl) {
         firebaseUser = mAuth.getCurrentUser();
         if (firebaseUser != null) {
 //            uploadImage(imageView);
-            item = new Item(name, description, price, "");
-            firebaseFirestore.collection("Items").document(UUID.randomUUID().toString()).set(item).addOnCompleteListener(new OnCompleteListener<Void>() {
+            String doc_id = UUID.randomUUID().toString();
+            item = new Item(name, description, price, imageUrl, doc_id);
+            firebaseFirestore.collection("Items").document(doc_id).set(item).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     Intent intent = new Intent(context, HomeActivity.class);
@@ -124,12 +142,13 @@ public class CommonDBCall {
     }
 
 
-    public void addLatestItem(String name, String description, String price, Context context, ImageView imageView) {
+    public void addLatestItem(String name, String description, String price, Context context, ImageView imageView, String imageUrl) {
         firebaseUser = mAuth.getCurrentUser();
         if (firebaseUser != null) {
 //            uploadImage(imageView);
-            item = new Item(name, description, price, "");
-            firebaseFirestore.collection("LatestItems").document(UUID.randomUUID().toString()).set(item).addOnCompleteListener(new OnCompleteListener<Void>() {
+            String doc_id = UUID.randomUUID().toString();
+            item = new Item(name, description, price, imageUrl, doc_id);
+            firebaseFirestore.collection("LatestItems").document(doc_id).set(item).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     Intent intent = new Intent(context, HomeActivity.class);
@@ -144,61 +163,5 @@ public class CommonDBCall {
         }
     }
 
-
-    // Upload Image to Firebase Storage
-    public void uploadImage(ImageView imageView) {
-        Uri file = Uri.fromFile(new File("path/to/images/rivers.jpg"));
-        storage = FirebaseStorage.getInstance();
-        storageRef = storage.getReference();
-        StorageReference riversRef = storageRef.child("images/" + file.getLastPathSegment());
-        StorageReference mountainsRef = storageRef.child("mountains.jpg");
-        // Get the data from an ImageView as bytes
-        imageView.setDrawingCacheEnabled(true);
-        imageView.buildDrawingCache();
-        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] data = baos.toByteArray();
-        UploadTask uploadTask = mountainsRef.putBytes(data);
-        uploadTask = riversRef.putFile(file);
-
-// Register observers to listen for when the download is done or if it fails
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                // ...
-            }
-        });
-
-// get download url
-        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-            @Override
-            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                if (!task.isSuccessful()) {
-                    throw Objects.requireNonNull(task.getException());
-                }
-
-                // Continue with the task to get the download URL
-                return riversRef.getDownloadUrl();
-            }
-        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-                    Uri downloadUri = task.getResult();
-                } else {
-                    // Handle failures
-                    // ...
-                }
-            }
-        });
-
-    }
 
 }

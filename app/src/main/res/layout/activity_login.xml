@@ -93,6 +93,7 @@
                     android:text="Remember my login details"/>
                 <CheckBox
                     android:layout_width="wrap_content"
+                    android:id="@+id/rMe"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
          </LinearLayout>

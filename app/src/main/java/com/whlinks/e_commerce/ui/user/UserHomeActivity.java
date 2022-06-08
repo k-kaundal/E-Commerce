@@ -1,8 +1,10 @@
 package com.whlinks.e_commerce.ui.user;
 
+import static com.whlinks.e_commerce.R.id.allitems;
 import static com.whlinks.e_commerce.R.id.drawer;
 import static com.whlinks.e_commerce.R.id.frame;
 import static com.whlinks.e_commerce.R.id.home;
+import static com.whlinks.e_commerce.R.id.latestitems;
 import static com.whlinks.e_commerce.R.id.logout;
 import static com.whlinks.e_commerce.R.id.navigation;
 import static com.whlinks.e_commerce.R.id.profile;
@@ -25,13 +27,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.whlinks.e_commerce.R;
 import com.whlinks.e_commerce.ui.HomeActivity;
 import com.whlinks.e_commerce.ui.auth.LoginActivity;
+import com.whlinks.e_commerce.ui.fragments.AllItemFragment;
 import com.whlinks.e_commerce.ui.fragments.HomeFragment;
+import com.whlinks.e_commerce.ui.fragments.LatestItemFragment;
 import com.whlinks.e_commerce.ui.fragments.ProfileFragment;
 
 import java.util.Objects;
 
 public class UserHomeActivity extends AppCompatActivity {
-
     FrameLayout frameLayout;
     Toolbar toolbar;
     ActionBarDrawerToggle actionBarDrawerToggle;
@@ -40,7 +43,7 @@ public class UserHomeActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        if(FirebaseAuth.getInstance().getCurrentUser()==null){
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             Intent intent = new Intent(UserHomeActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
@@ -48,12 +51,10 @@ public class UserHomeActivity extends AppCompatActivity {
         super.onStart();
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.whlinks.e_commerce.R.layout.activity_user_home);
-
         frameLayout = findViewById(frame);
         toolbar = findViewById(R.id.toolbar);
         drawerLayout = findViewById(drawer);
@@ -75,23 +76,33 @@ public class UserHomeActivity extends AppCompatActivity {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 switch (item.getItemId()) {
                     case home:
-
+                        setTitle("Home");
                         fragmentManager.
                                 beginTransaction().replace(frame, new HomeFragment()).commit();
                         break;
+                    case allitems:
+                        setTitle("All Items");
+                        fragmentManager.
+                                beginTransaction().replace(frame, new AllItemFragment()).commit();
+                        break;
+                    case latestitems:
+                        setTitle("Latest Items");
+                        fragmentManager.
+                                beginTransaction().replace(frame, new LatestItemFragment()).commit();
+                        break;
                     case profile:
+                        setTitle("Profile");
                         fragmentManager.
                                 beginTransaction().replace(frame, new ProfileFragment()).commit();
                         break;
                     case logout:
                         FirebaseAuth.getInstance().signOut();
-                        Intent intent = new Intent(UserHomeActivity.this,LoginActivity.class);
+                        Intent intent = new Intent(UserHomeActivity.this, LoginActivity.class);
                         startActivity(intent);
                         finish();
                     default:
                         fragmentManager.
                                 beginTransaction().replace(frame, new HomeFragment()).commit();
-
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
