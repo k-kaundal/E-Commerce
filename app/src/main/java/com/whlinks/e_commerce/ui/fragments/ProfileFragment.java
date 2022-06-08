@@ -1,5 +1,6 @@
 package com.whlinks.e_commerce.ui.fragments;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,6 +47,9 @@ public class ProfileFragment extends Fragment {
                 name.setText(documentSnapshots.getString("fName")+" "+documentSnapshots.getString("lName"));
                 email.setText(documentSnapshots.getString("email"));
                 phone.setText(documentSnapshots.getString("phone"));
+                System.out.println(documentSnapshots.getString("imageUrl"));
+                Glide.with(getActivity()).load(Uri.parse(documentSnapshots.getString("imageUrl"))).into(imageView);
+
             }
         });
 
@@ -60,7 +65,7 @@ public class ProfileFragment extends Fragment {
         name = view.findViewById(R.id.profilename);
         email = view.findViewById(R.id.profileemail);
         phone = view.findViewById(R.id.profilephone);
-
+        imageView = view.findViewById(R.id.profileImage);
 
         return view;
     }

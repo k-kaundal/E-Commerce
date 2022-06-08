@@ -2,15 +2,30 @@ package com.whlinks.e_commerce.ui.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
 import com.hbb20.CountryCodePicker;
 import com.whlinks.e_commerce.R;
 import com.whlinks.e_commerce.service.CommonDBCall;
@@ -24,6 +39,12 @@ public class RegisterActivity extends AppCompatActivity {
     RadioGroup gender;
     RadioButton rd;
     CommonDBCall commonDBCall = new CommonDBCall();
+    ImageView userImage;
+    String imageUrl = "";
+    private static final int IMAGE_REQUEST = 1;
+    private Uri imageUri;
+    private StorageTask<UploadTask.TaskSnapshot> uploadTask;
+    FirebaseStorage storageReference ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +59,15 @@ public class RegisterActivity extends AppCompatActivity {
         phone = findViewById(R.id.phone);
         cc = findViewById(R.id.countryCode);
         gender = findViewById(R.id.gender);
+        userImage = findViewById(R.id.userImage);
+        storageReference = FirebaseStorage.getInstance();
 
+        userImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openImage();
+            }
+        });
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +107,7 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 } else {
 
-                    commonDBCall.register(emailText, passwordText, fNameText, lNameText, phoneText, gender, RegisterActivity.this);
+                    commonDBCall.register(emailText, passwordText, fNameText, lNameText, phoneText, gender, RegisterActivity.this,imageUrl);
                     finish();
                 }
 
@@ -90,7 +119,91 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
+
+
+    private void openImage() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, IMAGE_REQUEST);
+    }
+
+    private String getFileExtension(Uri uri) {
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+
+    private void uploadImage() {
+         ProgressDialog pd = new ProgressDialog(RegisterActivity.this);
+        pd.setIndeterminateDrawable(getResources().getDrawable(R.drawable.background));
+
+        pd.setMessage("Uploading...");
+        pd.show();
+
+        if (imageUri != null) {
+            StorageReference fileReference = storageReference.getReference().child("Profile").child(System.currentTimeMillis()
+                    + "." + getFileExtension(imageUri));
+
+            uploadTask = fileReference.putFile(Uri.parse(String.valueOf(imageUri)));
+            uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+
+                    return fileReference.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        String mUri = downloadUri.toString();
+                        imageUrl = mUri;
+                        Glide.with(RegisterActivity.this).load(mUri).into(userImage);
+//                        reference = FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
+//                        HashMap<String, Object> map = new HashMap<>();
+//                        map.put("imageURL", "" + mUri);
+//                        reference.updateChildren(map);
+                        pd.dismiss();
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+                        pd.dismiss();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(Exception e) {
+                    Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    pd.dismiss();
+                }
+            });
+        } else {
+            Toast.makeText(RegisterActivity.this, "No image selected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
+            imageUri = data.getData();
+
+            if (uploadTask != null && uploadTask.isInProgress()) {
+                Toast.makeText(RegisterActivity.this, "Upload in progress", Toast.LENGTH_SHORT).show();
+            } else {
+                uploadImage();
+            }
+        }
+    }
+
+
 }

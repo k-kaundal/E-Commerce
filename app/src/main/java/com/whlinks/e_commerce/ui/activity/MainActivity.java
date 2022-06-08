@@ -1,4 +1,4 @@
-package com.whlinks.e_commerce.ui;
+package com.whlinks.e_commerce.ui.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;

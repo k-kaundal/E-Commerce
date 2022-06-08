@@ -1,4 +1,4 @@
-package com.whlinks.e_commerce.ui.user;
+package com.whlinks.e_commerce.ui.activity.user;
 
 import static com.whlinks.e_commerce.R.id.allitems;
 import static com.whlinks.e_commerce.R.id.drawer;
@@ -25,10 +25,9 @@ import android.widget.FrameLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.whlinks.e_commerce.R;
-import com.whlinks.e_commerce.ui.HomeActivity;
 import com.whlinks.e_commerce.ui.auth.LoginActivity;
 import com.whlinks.e_commerce.ui.fragments.AllItemFragment;
-import com.whlinks.e_commerce.ui.fragments.HomeFragment;
+import com.whlinks.e_commerce.ui.fragments.user.HomeFragment;
 import com.whlinks.e_commerce.ui.fragments.LatestItemFragment;
 import com.whlinks.e_commerce.ui.fragments.ProfileFragment;
 

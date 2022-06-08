@@ -18,6 +18,13 @@
             android:background="@drawable/background"
             android:orientation="vertical" />
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:id="@+id/userImage"
+            android:layout_height="200dp"
+            android:layout_alignTop="@+id/register_background_image"
+            android:src="@drawable/image_placeholder"/>
         <TextView
             android:id="@+id/registertext"
             android:layout_width="match_parent"

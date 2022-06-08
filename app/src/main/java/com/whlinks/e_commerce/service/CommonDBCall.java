@@ -3,37 +3,24 @@ package com.whlinks.e_commerce.service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.whlinks.e_commerce.models.Item;
 import com.whlinks.e_commerce.models.Users;
-import com.whlinks.e_commerce.ui.HomeActivity;
+import com.whlinks.e_commerce.ui.activity.HomeActivity;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 public class CommonDBCall {
@@ -46,7 +33,7 @@ public class CommonDBCall {
     Item item;
 
     // Registration
-    public void register(String email, String password, String fName, String lName, String phone, String gender, Context context) {
+    public void register(String email, String password, String fName, String lName, String phone, String gender, Context context, String imageUrl) {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -54,7 +41,7 @@ public class CommonDBCall {
                 if (task.isComplete()) {
                     firebaseUser = mAuth.getCurrentUser();
                     if (firebaseUser != null) {
-                        users = new Users(email, fName, lName, phone, gender);
+                        users = new Users(email, fName, lName, phone, gender,imageUrl);
                         firebaseFirestore.collection("User").document(firebaseUser.getUid()).set(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
@@ -125,7 +112,7 @@ public class CommonDBCall {
         if (firebaseUser != null) {
 //            uploadImage(imageView);
             String doc_id = UUID.randomUUID().toString();
-            item = new Item(name, description, price, imageUrl, doc_id);
+            item = new Item(name, description, "Rs "+price, imageUrl, doc_id);
             firebaseFirestore.collection("Items").document(doc_id).set(item).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
@@ -147,7 +134,7 @@ public class CommonDBCall {
         if (firebaseUser != null) {
 //            uploadImage(imageView);
             String doc_id = UUID.randomUUID().toString();
-            item = new Item(name, description, price, imageUrl, doc_id);
+            item = new Item(name, description, "Rs "+price, imageUrl, doc_id);
             firebaseFirestore.collection("LatestItems").document(doc_id).set(item).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {

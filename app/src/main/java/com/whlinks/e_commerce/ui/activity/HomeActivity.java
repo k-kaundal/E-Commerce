@@ -1,4 +1,4 @@
-package com.whlinks.e_commerce.ui;
+package com.whlinks.e_commerce.ui.activity;
 
 import static com.whlinks.e_commerce.R.id.*;
 
@@ -28,7 +28,7 @@ import com.whlinks.e_commerce.R;
 import com.whlinks.e_commerce.ui.auth.LoginActivity;
 import com.whlinks.e_commerce.ui.fragments.AddItemFragment;
 import com.whlinks.e_commerce.ui.fragments.AllItemFragment;
-import com.whlinks.e_commerce.ui.fragments.HomeFragment;
+import com.whlinks.e_commerce.ui.fragments.user.HomeFragment;
 import com.whlinks.e_commerce.ui.fragments.LatestItemFragment;
 import com.whlinks.e_commerce.ui.fragments.ProfileFragment;
 import com.whlinks.e_commerce.ui.fragments.UpdateItemFragment;

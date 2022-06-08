@@ -1,14 +1,15 @@
 package com.whlinks.e_commerce.models;
 
 public class Users {
- private  String email, fName, lName, phone, gender;
+    private String email, fName, lName, phone, gender, imageUrl;
 
-    public  Users(String email, String fName, String lName, String phone, String gender) {
+    public Users(String email, String fName, String lName, String phone, String gender, String imageUrl) {
         this.email = email;
         this.fName = fName;
         this.lName = lName;
         this.phone = phone;
         this.gender = gender;
+        this.imageUrl = imageUrl;
     }
 
     public void setEmail(String email) {
@@ -53,4 +54,11 @@ public class Users {
         return phone;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }
