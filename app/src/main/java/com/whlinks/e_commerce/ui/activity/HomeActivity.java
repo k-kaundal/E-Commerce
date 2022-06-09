@@ -28,6 +28,7 @@ import com.whlinks.e_commerce.R;
 import com.whlinks.e_commerce.ui.auth.LoginActivity;
 import com.whlinks.e_commerce.ui.fragments.AddItemFragment;
 import com.whlinks.e_commerce.ui.fragments.AllItemFragment;
+import com.whlinks.e_commerce.ui.fragments.TopItemsFragment;
 import com.whlinks.e_commerce.ui.fragments.user.HomeFragment;
 import com.whlinks.e_commerce.ui.fragments.LatestItemFragment;
 import com.whlinks.e_commerce.ui.fragments.ProfileFragment;
@@ -78,6 +79,11 @@ public class HomeActivity extends AppCompatActivity {
                         fragmentManager.
                                 beginTransaction().replace(frame, new HomeFragment()).commit();
                         break;
+//                    case topitems:
+//                        setTitle("Top Items");
+//                        fragmentManager.
+//                                beginTransaction().replace(frame, new TopItemsFragment()).commit();
+//                        break;
                     case latestitems:
                         setTitle("Latest Items");
                         fragmentManager.

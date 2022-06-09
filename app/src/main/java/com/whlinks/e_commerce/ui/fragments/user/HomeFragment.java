@@ -129,7 +129,7 @@ public class HomeFragment extends Fragment {
                 if (topItem == null) {
                     System.out.println("No data");
                 } else {
-                    recyclerViewTop.setAdapter(new TopItemAdapter(topItem, getContext()));
+                    recyclerViewTop.setAdapter(new TopItemAdapter(topItem,getContext()));
                 }
 //                recyclerViewlatest.setAdapter(new ItemAdapter(itemList1, getContext()));
 

@@ -1,0 +1,85 @@
+package com.whlinks.e_commerce.ui.fragments;
+
+import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.GridView;
+
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.whlinks.e_commerce.R;
+import com.whlinks.e_commerce.adapter.ItemAdapter;
+import com.whlinks.e_commerce.adapter.TopItemAdapter;
+import com.whlinks.e_commerce.models.Item;
+import com.whlinks.e_commerce.service.CommonDBCall;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class TopItemsFragment extends Fragment {
+    GridView topItemGrid;
+    CommonDBCall commonDBCall = new CommonDBCall();
+    List<Item> itemList1;
+    List<DocumentSnapshot> itemList;
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    Item item;
+
+    public TopItemsFragment() {
+        // Required empty public constructor
+    }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_top_items, container, false);
+        topItemGrid = view.findViewById(R.id.topItemsGrid);
+        firebaseFirestore.collection("TopItems").get().addOnCompleteListener(task -> {
+            if (task.isComplete()) {
+                QuerySnapshot queryDocumentSnapshots = task.getResult();
+//                    System.out.println(queryDocumentSnapshots.getDocuments());
+                itemList = queryDocumentSnapshots.getDocuments();
+//                System.out.println(itemList);
+//                itemList1 = new ArrayList<>();
+//                itemList1.add(new Item("Demo","Demo","Demo","Demo"));
+                itemList1 = new ArrayList<>();
+                for (int i = 0; i < task.getResult().size(); i++) {
+//                    new Item(itemList[i].getData());
+                    System.out.println(itemList.get(i).getData().get("name"));
+
+                    itemList1.add(new Item(itemList.get(i).getData().get("name").toString(), itemList.get(i).getData().get("descripton").toString(), itemList.get(i).getData().get("price").toString(), itemList.get(i).getData().get("image").toString(), itemList.get(i).getData().get("doc_id").toString()));
+//
+//                   itemList1.add(itemList.get(i).getData());
+                    System.out.println(itemList.get(i).getData().get("name"));
+                }
+//                topItemGrid.setLayoutManager(new LinearLayoutManager(getContext()));
+                if (itemList1 == null){
+                    System.out.println("No data");
+                }else{
+
+
+//                    topItemGrid.setAdapter(adapter);
+//                    topItemGrid.setAdapter(new TopItemAdapter( itemList1,getActivity()));
+                }
+
+
+            }
+        });
+
+        return view;
+    }
+}

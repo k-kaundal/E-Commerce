@@ -68,11 +68,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
                     android:layout_marginBottom="5dp"
+                    android:id="@+id/addToFavorite"
                     android:src="@drawable/ic_baseline_favorite_border_24"/>
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Add to cart"
+                    android:id="@+id/addToCart"
                     android:textAllCaps="false"
                     android:layout_marginBottom="-8dp"
                     android:textSize="8sp"

@@ -169,4 +169,26 @@ public class CommonDBCall {
     }
 
 
+    public void addItemToCart(String name, String description, String price,String imageUrl, String dID, Context context){
+        firebaseUser = mAuth.getCurrentUser();
+        if (firebaseUser != null) {
+//            uploadImage(imageView);
+            item = new Item(name, description, price, imageUrl, dID);
+            firebaseFirestore.collection("UserCollections").document(firebaseUser.getUid().toString()).collection("Cart").document(dID).set(item).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Toast.makeText(context, name+" is added to your cart", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(context, HomeActivity.class);
+//                    context.startActivity(intent);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, e + "", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+
 }
