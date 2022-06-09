@@ -11,7 +11,7 @@
         android:layout_height="245dp"
         android:scaleType="centerCrop"
         android:id="@+id/my_featured_image"
-        android:src="@drawable/item1" />
+        android:src="@drawable/items1" />
 
     <ImageView
         android:layout_width="match_parent"

@@ -91,8 +91,8 @@ public class HomeFragment extends Fragment {
 
 
         listItems = new ArrayList<>() ;
-        listItems.add(new The_Slide_Items_Model_Class(R.drawable.item1,"Slider 1 Title"));
-        listItems.add(new The_Slide_Items_Model_Class(R.drawable.item2,"Slider 2 Title"));
+        listItems.add(new The_Slide_Items_Model_Class(R.drawable.items1,"Get Latest Items"));
+        listItems.add(new The_Slide_Items_Model_Class(R.drawable.items2,"Best Electrction Items"));
 //        listItems.add(new The_Slide_Items_Model_Class(R.drawable.item3,"Slider 3 Title"));
 
 

@@ -1,4 +1,4 @@
-package com.whlinks.e_commerce.ui.fragments;
+package com.whlinks.e_commerce.ui.fragments.user;
 
 import android.net.Uri;
 import android.os.Bundle;

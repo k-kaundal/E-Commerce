@@ -1,4 +1,4 @@
-package com.whlinks.e_commerce.ui.fragments;
+package com.whlinks.e_commerce.ui.fragments.user;
 
 import android.os.Bundle;
 
@@ -10,30 +10,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.whlinks.e_commerce.R;
-import com.whlinks.e_commerce.adapter.ItemAdapter;
+import com.whlinks.e_commerce.adapter.CartItemAdapter;
+import com.whlinks.e_commerce.adapter.FavoriteItemsAdapter;
 import com.whlinks.e_commerce.models.Item;
 import com.whlinks.e_commerce.service.CommonDBCall;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllItemFragment extends Fragment {
+public class CartFragment extends Fragment {
 
 
-    public AllItemFragment() {
+    public CartFragment() {
         // Required empty public constructor
     }
-
     RecyclerView recyclerView;
     CommonDBCall commonDBCall = new CommonDBCall();
     List<Item> itemList1;
     List<DocumentSnapshot> itemList;
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     Item item;
+    FirebaseAuth firebaseAuth ;
+    FirebaseUser firebaseUser;
 
 
     @Override
@@ -54,10 +58,13 @@ public class AllItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_all_item, container, false);
+        View view = inflater.inflate(R.layout.fragment_cart, container, false);
         recyclerView = view.findViewById(R.id.recycler);
 //        itemList1.add(new Item("Demo","Demo","Demo","Demo"));
-        firebaseFirestore.collection("Items").get().addOnCompleteListener(task -> {
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+//        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseFirestore.collection("UserCollections").document(firebaseUser.getUid().toString()).collection("Cart").get().addOnCompleteListener(task -> {
             if (task.isComplete()) {
                 QuerySnapshot queryDocumentSnapshots = task.getResult();
 //                    System.out.println(queryDocumentSnapshots.getDocuments());
@@ -80,7 +87,7 @@ public class AllItemFragment extends Fragment {
                 if (itemList1 == null){
                     System.out.println("No data");
                 }else{
-                    recyclerView.setAdapter(new ItemAdapter(itemList1, getActivity()));
+                    recyclerView.setAdapter(new CartItemAdapter(itemList1, getActivity()));
                 }
 
 

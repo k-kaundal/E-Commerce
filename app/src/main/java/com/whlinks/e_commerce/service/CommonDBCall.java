@@ -20,6 +20,7 @@ import com.google.firebase.storage.StorageReference;
 import com.whlinks.e_commerce.models.Item;
 import com.whlinks.e_commerce.models.Users;
 import com.whlinks.e_commerce.ui.activity.HomeActivity;
+import com.whlinks.e_commerce.ui.activity.user.UserHomeActivity;
 
 import java.util.UUID;
 
@@ -167,6 +168,63 @@ public class CommonDBCall {
             });
         }
     }
+    public void removeTopItem(String dID,Context context) {
+        firebaseUser = mAuth.getCurrentUser();
+        if (firebaseUser != null) {
+//            uploadImage(imageView);
+//            item = new Item(name, description, "Rs "+price, imageUrl, doc_id);
+            firebaseFirestore.collection("TopItems").document(dID).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Intent intent = new Intent(context, HomeActivity.class);
+                    context.startActivity(intent);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, e + "", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+    public void removeLatestItem(String dID,Context context) {
+        firebaseUser = mAuth.getCurrentUser();
+        if (firebaseUser != null) {
+//            uploadImage(imageView);
+//            item = new Item(name, description, "Rs "+price, imageUrl, doc_id);
+            firebaseFirestore.collection("LatestItems").document(dID).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Intent intent = new Intent(context, HomeActivity.class);
+                    context.startActivity(intent);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, e + "", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+    public void removeItem(String dID,Context context) {
+        firebaseUser = mAuth.getCurrentUser();
+        if (firebaseUser != null) {
+//            uploadImage(imageView);
+//            item = new Item(name, description, "Rs "+price, imageUrl, doc_id);
+            firebaseFirestore.collection("Items").document(dID).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Intent intent = new Intent(context, HomeActivity.class);
+                    context.startActivity(intent);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, e + "", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
 
 
     public void addItemToCart(String name, String description, String price,String imageUrl, String dID, Context context){
@@ -178,8 +236,8 @@ public class CommonDBCall {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     Toast.makeText(context, name+" is added to your cart", Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(context, HomeActivity.class);
-//                    context.startActivity(intent);
+                    Intent intent = new Intent(context, UserHomeActivity.class);
+                    context.startActivity(intent);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -197,9 +255,9 @@ public class CommonDBCall {
             firebaseFirestore.collection("UserCollections").document(firebaseUser.getUid().toString()).collection("Favorite").document(dID).set(item).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    Toast.makeText(context, name+" is added to your favorite list", Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(context, HomeActivity.class);
-//                    context.startActivity(intent);
+                    Toast.makeText(context, name+" is added to your favorite items list", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, UserHomeActivity.class);
+                    context.startActivity(intent);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -209,6 +267,47 @@ public class CommonDBCall {
             });
         }
     }
+    public void addItemToLatestAdmin(String name, String description, String price,String imageUrl, String dID, Context context){
+        firebaseUser = mAuth.getCurrentUser();
+        if (firebaseUser != null) {
+//            uploadImage(imageView);
+            item = new Item(name, description, price, imageUrl, dID);
+            firebaseFirestore.collection("LatestItems").document(dID).set(item).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Toast.makeText(context, name+" is added to latest items list", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, HomeActivity.class);
+                    context.startActivity(intent);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, e + "", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+    public void addItemToTopAdmin(String name, String description, String price,String imageUrl, String dID, Context context){
+        firebaseUser = mAuth.getCurrentUser();
+        if (firebaseUser != null) {
+//            uploadImage(imageView);
+            item = new Item(name, description, price, imageUrl, dID);
+            firebaseFirestore.collection("TopItems").document(dID).set(item).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Toast.makeText(context, name+" is added to top items list", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, HomeActivity.class);
+                    context.startActivity(intent);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, e + "", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
 
     public void removeItemFromFavorite(String dID, Context context){
         firebaseUser = mAuth.getCurrentUser();
@@ -232,6 +331,7 @@ public class CommonDBCall {
     }
 
 
+
     public void removeItemFromCart(String dID, Context context){
         firebaseUser = mAuth.getCurrentUser();
         if (firebaseUser != null) {
@@ -241,7 +341,7 @@ public class CommonDBCall {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     Toast.makeText(context, "Item removed from Cart", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(context, HomeActivity.class);
+                    Intent intent = new Intent(context, UserHomeActivity.class);
                     context.startActivity(intent);
                 }
             }).addOnFailureListener(new OnFailureListener() {

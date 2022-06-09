@@ -1,7 +1,9 @@
 package com.whlinks.e_commerce.ui.activity.user;
 
 import static com.whlinks.e_commerce.R.id.allitems;
+import static com.whlinks.e_commerce.R.id.cart;
 import static com.whlinks.e_commerce.R.id.drawer;
+import static com.whlinks.e_commerce.R.id.favorite;
 import static com.whlinks.e_commerce.R.id.frame;
 import static com.whlinks.e_commerce.R.id.home;
 import static com.whlinks.e_commerce.R.id.latestitems;
@@ -26,10 +28,12 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.whlinks.e_commerce.R;
 import com.whlinks.e_commerce.ui.auth.LoginActivity;
-import com.whlinks.e_commerce.ui.fragments.AllItemFragment;
+import com.whlinks.e_commerce.ui.fragments.user.AllItemFragment;
+import com.whlinks.e_commerce.ui.fragments.user.CartFragment;
+import com.whlinks.e_commerce.ui.fragments.user.FavoriteItemsFragment;
 import com.whlinks.e_commerce.ui.fragments.user.HomeFragment;
 import com.whlinks.e_commerce.ui.fragments.LatestItemFragment;
-import com.whlinks.e_commerce.ui.fragments.ProfileFragment;
+import com.whlinks.e_commerce.ui.fragments.user.ProfileFragment;
 
 import java.util.Objects;
 
@@ -79,16 +83,22 @@ public class UserHomeActivity extends AppCompatActivity {
                         fragmentManager.
                                 beginTransaction().replace(frame, new HomeFragment()).commit();
                         break;
-                    case allitems:
-                        setTitle("All Items");
-                        fragmentManager.
-                                beginTransaction().replace(frame, new AllItemFragment()).commit();
-                        break;
                     case latestitems:
                         setTitle("Latest Items");
                         fragmentManager.
                                 beginTransaction().replace(frame, new LatestItemFragment()).commit();
                         break;
+                    case cart:
+                        setTitle("My Cart");
+                        fragmentManager.
+                                beginTransaction().replace(frame, new CartFragment()).commit();
+                        break;
+                    case favorite:
+                        setTitle("Favorite Items");
+                        fragmentManager.
+                                beginTransaction().replace(frame, new FavoriteItemsFragment()).commit();
+                        break;
+
                     case profile:
                         setTitle("Profile");
                         fragmentManager.

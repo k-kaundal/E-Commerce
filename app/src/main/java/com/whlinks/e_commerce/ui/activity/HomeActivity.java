@@ -27,13 +27,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.whlinks.e_commerce.R;
 import com.whlinks.e_commerce.ui.auth.LoginActivity;
 import com.whlinks.e_commerce.ui.fragments.AddItemFragment;
-import com.whlinks.e_commerce.ui.fragments.AllItemFragment;
-import com.whlinks.e_commerce.ui.fragments.CartFragment;
-import com.whlinks.e_commerce.ui.fragments.FavoriteItemsFragment;
-import com.whlinks.e_commerce.ui.fragments.TopItemsFragment;
+import com.whlinks.e_commerce.ui.fragments.AllItemsAdminFragment;
+import com.whlinks.e_commerce.ui.fragments.RemoveItemFragment;
+import com.whlinks.e_commerce.ui.fragments.RemoveLatestItemFragment;
+import com.whlinks.e_commerce.ui.fragments.RemoveTopItemsFragment;
+import com.whlinks.e_commerce.ui.fragments.user.AllItemFragment;
+import com.whlinks.e_commerce.ui.fragments.user.CartFragment;
+import com.whlinks.e_commerce.ui.fragments.user.FavoriteItemsFragment;
 import com.whlinks.e_commerce.ui.fragments.user.HomeFragment;
 import com.whlinks.e_commerce.ui.fragments.LatestItemFragment;
-import com.whlinks.e_commerce.ui.fragments.ProfileFragment;
+import com.whlinks.e_commerce.ui.fragments.user.ProfileFragment;
 import com.whlinks.e_commerce.ui.fragments.UpdateItemFragment;
 
 import java.io.ByteArrayOutputStream;
@@ -81,40 +84,31 @@ public class HomeActivity extends AppCompatActivity {
                         fragmentManager.
                                 beginTransaction().replace(frame, new HomeFragment()).commit();
                         break;
-//                    case topitems:
-//                        setTitle("Top Items");
-//                        fragmentManager.
-//                                beginTransaction().replace(frame, new TopItemsFragment()).commit();
-//                        break;
-                    case latestitems:
-                        setTitle("Latest Items");
-                        fragmentManager.
-                                beginTransaction().replace(frame, new LatestItemFragment()).commit();
-                        break;
-                    case allitems:
+                    case allItemsAdmin:
                         setTitle("All Items");
                         fragmentManager.
-                                beginTransaction().replace(frame, new AllItemFragment()).commit();
+                                beginTransaction().replace(frame, new AllItemsAdminFragment()).commit();
                         break;
-                    case favorite:
-                        setTitle("Favorite Items");
+                    case removeItems:
+                        setTitle("Delete Items");
                         fragmentManager.
-                                beginTransaction().replace(frame, new FavoriteItemsFragment()).commit();
+                                beginTransaction().replace(frame, new RemoveItemFragment()).commit();
                         break;
-                    case cart:
-                        setTitle("My Cart");
+                    case removeLatestItems:
+                        setTitle("Delete Latest Items");
                         fragmentManager.
-                                beginTransaction().replace(frame, new CartFragment()).commit();
+                                beginTransaction().replace(frame, new RemoveLatestItemFragment()).commit();
                         break;
+                    case removeTopItems:
+                        setTitle("Delete Top Items");
+                        fragmentManager.
+                                beginTransaction().replace(frame, new RemoveTopItemsFragment()).commit();
+                        break;
+
                     case additem:
                         setTitle("Add Item");
                         fragmentManager.
                                 beginTransaction().replace(frame, new AddItemFragment()).commit();
-                        break;
-                    case updateitem:
-                        setTitle("Update");
-                        fragmentManager.
-                                beginTransaction().replace(frame, new UpdateItemFragment()).commit();
                         break;
 
                     case profile:
