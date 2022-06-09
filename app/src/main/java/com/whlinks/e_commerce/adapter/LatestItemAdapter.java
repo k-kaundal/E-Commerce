@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.whlinks.e_commerce.R;
 import com.whlinks.e_commerce.models.Item;
+import com.whlinks.e_commerce.service.CommonDBCall;
 import com.whlinks.e_commerce.ui.activity.ItemActivity;
 
 import java.util.List;
@@ -24,7 +26,7 @@ public class LatestItemAdapter extends RecyclerView.Adapter<LatestItemAdapter.Vi
 
     List<Item> itemList;
     private Context context;
-
+    CommonDBCall commonDBCall = new CommonDBCall();
     public LatestItemAdapter(List<Item> itemList1, Context context) {
         this.itemList = itemList1;
         this.context = context;
@@ -56,6 +58,22 @@ public class LatestItemAdapter extends RecyclerView.Adapter<LatestItemAdapter.Vi
                 context.startActivity(intent);
             }
         });
+
+
+
+        holder.addToFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                commonDBCall.addItemToFavorite(itemList.get(position).getName(), itemList.get(position).getDescripton(), itemList.get(position).getPrice(), itemList.get(position).getImage(), itemList.get(position).getDoc_id(), context);
+            }
+        });
+
+        holder.addToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                commonDBCall.addItemToCart(itemList.get(position).getName(), itemList.get(position).getDescripton(), itemList.get(position).getPrice(), itemList.get(position).getImage(), itemList.get(position).getDoc_id(), context);
+            }
+        });
     }
 
     @Override
@@ -65,9 +83,10 @@ public class LatestItemAdapter extends RecyclerView.Adapter<LatestItemAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView itemImage;
+        ImageView itemImage,addToFavorite;
         TextView itemtxt, itemDesc, itemPrice;
         LinearLayout linearLayout;
+        Button addToCart;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -76,6 +95,8 @@ public class LatestItemAdapter extends RecyclerView.Adapter<LatestItemAdapter.Vi
             itemDesc = itemView.findViewById(R.id.itemDesc);
             itemPrice = itemView.findViewById(R.id.itemPrice);
             linearLayout = itemView.findViewById(R.id.layout_id);
+            addToCart = itemView.findViewById(R.id.addToCart);
+            addToFavorite = itemView.findViewById(R.id.addToFavorite);
         }
     }
 

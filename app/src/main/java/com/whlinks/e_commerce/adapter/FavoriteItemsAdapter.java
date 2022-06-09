@@ -21,27 +21,39 @@ import com.whlinks.e_commerce.ui.activity.ItemActivity;
 
 import java.util.List;
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
+public class FavoriteItemsAdapter extends RecyclerView.Adapter<FavoriteItemsAdapter.ViewHolder> {
+
     List<Item> itemList;
-    private  Context context;
+    private Context context;
     CommonDBCall commonDBCall = new CommonDBCall();
-    public ItemAdapter(List<Item> itemList1, Context context) {
+
+    public FavoriteItemsAdapter(List<Item> itemList1, Context context) {
         this.itemList = itemList1;
         this.context = context;
     }
 
-
     @NonNull
     @Override
-    public ItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view= layoutInflater.inflate(R.layout.single_item, parent, false);
+        View view = layoutInflater.inflate(R.layout.favorite_items, parent, false);
 //        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_item, parent,false);
-        return new ViewHolder(view);
+        return new FavoriteItemsAdapter.ViewHolder(view);
     }
 
+
+    //
+//    @NonNull
+//    @Override
+//    public FavoriteItemsAdapter.ViewHolder onCreateViewHolderH(@NonNull ViewGroup parent, int viewType) {
+//        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+//        View view = layoutInflater.inflate(R.layout.single_item, parent, false);
+////        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_item, parent,false);
+//        return new FavoriteItemsAdapter.ViewHolder(view);
+//    }
+
     @Override
-    public void onBindViewHolder(@NonNull ItemAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FavoriteItemsAdapter.ViewHolder holder, int position) {
 //        holder.itemImage.setImageURI(Uri.parse(itemList.get(position).getImage()));
         Glide.with(context).load(itemList.get(position).getImage()).into(holder.itemImage);
 //        holder.itemImage.set;
@@ -58,19 +70,19 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             }
         });
 
-        holder.addToFavorite.setOnClickListener(new View.OnClickListener() {
+        holder.removeToFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                commonDBCall.addItemToFavorite(itemList.get(position).getName(), itemList.get(position).getDescripton(), itemList.get(position).getPrice(), itemList.get(position).getImage(), itemList.get(position).getDoc_id(), context);
+                commonDBCall.removeItemFromFavorite(itemList.get(position).getDoc_id(), context);
             }
         });
 
-        holder.addToCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                commonDBCall.addItemToCart(itemList.get(position).getName(), itemList.get(position).getDescripton(), itemList.get(position).getPrice(), itemList.get(position).getImage(), itemList.get(position).getDoc_id(), context);
-            }
-        });
+//        holder.addToCart.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                commonDBCall.addItemToCart(itemList.get(position).getName(), itemList.get(position).getDescripton(), itemList.get(position).getPrice(), itemList.get(position).getImage(), itemList.get(position).getDoc_id(), context);
+//            }
+//        });
     }
 
     @Override
@@ -80,10 +92,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView itemImage,addToFavorite;
+        ImageView itemImage, removeToFavorite;
         TextView itemtxt, itemDesc, itemPrice;
         LinearLayout linearLayout;
-        Button addToCart;
+//        Button addToCart;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,8 +104,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             itemDesc = itemView.findViewById(R.id.itemDesc);
             itemPrice = itemView.findViewById(R.id.itemPrice);
             linearLayout = itemView.findViewById(R.id.layout_id);
-            addToCart = itemView.findViewById(R.id.addToCart);
-            addToFavorite = itemView.findViewById(R.id.addToFavorite);
+//            addToCart = itemView.findViewById(R.id.addToCart);
+            removeToFavorite = itemView.findViewById(R.id.removeToFavorite);
         }
     }
 }

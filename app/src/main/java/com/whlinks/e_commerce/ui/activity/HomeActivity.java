@@ -28,6 +28,8 @@ import com.whlinks.e_commerce.R;
 import com.whlinks.e_commerce.ui.auth.LoginActivity;
 import com.whlinks.e_commerce.ui.fragments.AddItemFragment;
 import com.whlinks.e_commerce.ui.fragments.AllItemFragment;
+import com.whlinks.e_commerce.ui.fragments.CartFragment;
+import com.whlinks.e_commerce.ui.fragments.FavoriteItemsFragment;
 import com.whlinks.e_commerce.ui.fragments.TopItemsFragment;
 import com.whlinks.e_commerce.ui.fragments.user.HomeFragment;
 import com.whlinks.e_commerce.ui.fragments.LatestItemFragment;
@@ -93,6 +95,16 @@ public class HomeActivity extends AppCompatActivity {
                         setTitle("All Items");
                         fragmentManager.
                                 beginTransaction().replace(frame, new AllItemFragment()).commit();
+                        break;
+                    case favorite:
+                        setTitle("Favorite Items");
+                        fragmentManager.
+                                beginTransaction().replace(frame, new FavoriteItemsFragment()).commit();
+                        break;
+                    case cart:
+                        setTitle("My Cart");
+                        fragmentManager.
+                                beginTransaction().replace(frame, new CartFragment()).commit();
                         break;
                     case additem:
                         setTitle("Add Item");

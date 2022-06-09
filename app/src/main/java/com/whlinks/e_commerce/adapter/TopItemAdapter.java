@@ -67,14 +67,14 @@ public class TopItemAdapter extends RecyclerView.Adapter<TopItemAdapter.ViewHold
         holder.addToFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                commonDBCall.addItemToCart(itemList.get(position).getName(), itemList.get(position).getDescripton(), itemList.get(position).getPrice(), itemList.get(position).getImage(), itemList.get(position).getDoc_id(), context);
+                commonDBCall.addItemToFavorite(itemList.get(position).getName(), itemList.get(position).getDescripton(), itemList.get(position).getPrice(), itemList.get(position).getImage(), itemList.get(position).getDoc_id(), context);
             }
         });
 
         holder.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                commonDBCall.addItemToCart(itemList.get(position).getName(), itemList.get(position).getDescripton(), itemList.get(position).getPrice(), itemList.get(position).getImage(), itemList.get(position).getDoc_id(), context);
             }
         });
 
