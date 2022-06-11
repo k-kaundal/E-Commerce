@@ -47,48 +47,58 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
-        <TextView
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Top Items" />
-        <HorizontalScrollView
+            android:layout_height="?actionBarSize"
+            />
+        <FrameLayout
+            android:id="@+id/framelayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:scrollbars="horizontal"
-                    android:layout_height="match_parent"
-                    android:id="@+id/recyclerViewTop"/>
-            </LinearLayout>
-        </HorizontalScrollView>
+            android:layout_height="match_parent"/>
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:text="Top Items" />-->
+<!--        <HorizontalScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent">-->
+<!--                <androidx.recyclerview.widget.RecyclerView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:scrollbars="horizontal"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:id="@+id/recyclerViewTop"/>-->
+<!--            </LinearLayout>-->
+<!--        </HorizontalScrollView>-->
 
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:text="Latest Items" />
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_margin="10dp"-->
+<!--                        android:text="Latest Items" />-->
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/latestitemrecyc"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+<!--                    <androidx.recyclerview.widget.RecyclerView-->
+<!--                        android:id="@+id/latestitemrecyc"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent" />-->
 
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:text="All Items" />
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_margin="10dp"-->
+<!--                        android:text="All Items" />-->
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/allitemsrecyc"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+<!--                    <androidx.recyclerview.widget.RecyclerView-->
+<!--                        android:id="@+id/allitemsrecyc"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent" />-->
                 </LinearLayout>
     </ScrollView>
 

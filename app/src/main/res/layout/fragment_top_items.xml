@@ -6,12 +6,9 @@
     tools:context=".ui.fragments.user.TopItemsFragment"
     android:orientation="vertical">
 
-    <GridView
-        android:id="@+id/topItemsGrid"
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:horizontalSpacing="6dp"
-        android:numColumns="2"
-        android:verticalSpacing="6dp"/>
+        android:id="@+id/recycler"/>
 
 </LinearLayout>

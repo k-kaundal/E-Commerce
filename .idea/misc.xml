@@ -6,6 +6,7 @@
         <entry key="app/src/main/res/drawable/default_indicator.xml" value="0.1265" />
         <entry key="app/src/main/res/drawable/image_shape.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/indicator_selector.xml" value="0.1265" />
+        <entry key="app/src/main/res/drawable/round_butoon.xml" value="0.11" />
         <entry key="app/src/main/res/drawable/selected_indicator.xml" value="0.1275" />
         <entry key="app/src/main/res/drawable/the_slinder_background.xml" value="0.1265" />
         <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.259375" />

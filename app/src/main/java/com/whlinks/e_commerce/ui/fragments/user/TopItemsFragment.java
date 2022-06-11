@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,16 +25,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TopItemsFragment extends Fragment {
-    GridView topItemGrid;
+
+
+    public TopItemsFragment() {
+        // Required empty public constructor
+    }
+
+
+    RecyclerView recyclerView;
     CommonDBCall commonDBCall = new CommonDBCall();
     List<Item> itemList1;
     List<DocumentSnapshot> itemList;
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     Item item;
-
-    public TopItemsFragment() {
-        // Required empty public constructor
-    }
 
 
     @Override
@@ -43,11 +47,20 @@ public class TopItemsFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+
+        super.onStart();
+
+    }
+
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_top_items, container, false);
-        topItemGrid = view.findViewById(R.id.topItemsGrid);
+        recyclerView = view.findViewById(R.id.recycler);
+//        itemList1.add(new Item("Demo","Demo","Demo","Demo"));
         firebaseFirestore.collection("TopItems").get().addOnCompleteListener(task -> {
             if (task.isComplete()) {
                 QuerySnapshot queryDocumentSnapshots = task.getResult();
@@ -66,19 +79,19 @@ public class TopItemsFragment extends Fragment {
 //                   itemList1.add(itemList.get(i).getData());
                     System.out.println(itemList.get(i).getData().get("name"));
                 }
-//                topItemGrid.setLayoutManager(new LinearLayoutManager(getContext()));
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 if (itemList1 == null){
                     System.out.println("No data");
                 }else{
-
-
-//                    topItemGrid.setAdapter(adapter);
-//                    topItemGrid.setAdapter(new TopItemAdapter( itemList1,getActivity()));
+                    recyclerView.setAdapter(new TopItemAdapter(itemList1, getActivity()));
                 }
 
 
             }
         });
+//        System.out.println(itemList1.size());
+
 
         return view;
     }

@@ -73,6 +73,19 @@ public class AllItemsAdminAdapter extends RecyclerView.Adapter<AllItemsAdminAdap
 //                commonDBCall.addItemToCart(itemList.get(position).getName(), itemList.get(position).getDescripton(), itemList.get(position).getPrice(), itemList.get(position).getImage(), itemList.get(position).getDoc_id(), context);
 //            }
 //        });
+
+
+        holder.edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+            }
+        });
+
+
+
         holder.addItemToLatest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,10 +107,10 @@ public class AllItemsAdminAdapter extends RecyclerView.Adapter<AllItemsAdminAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView itemImage,addToFavorite;
+        ImageView itemImage,edit;
         TextView itemtxt, itemDesc, itemPrice;
         LinearLayout linearLayout;
-        Button addToCart, addItemToLatest,addItemToTop;
+        Button addItemToLatest,addItemToTop;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -106,8 +119,7 @@ public class AllItemsAdminAdapter extends RecyclerView.Adapter<AllItemsAdminAdap
             itemDesc = itemView.findViewById(R.id.itemDesc);
             itemPrice = itemView.findViewById(R.id.itemPrice);
             linearLayout = itemView.findViewById(R.id.layout_id);
-            addToCart = itemView.findViewById(R.id.addToCart);
-            addToFavorite = itemView.findViewById(R.id.addToFavorite);
+            edit = itemView.findViewById(R.id.edit);
             addItemToLatest = itemView.findViewById(R.id.addToLatest);
             addItemToTop = itemView.findViewById(R.id.addToTop);
         }
