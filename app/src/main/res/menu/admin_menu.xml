@@ -22,9 +22,9 @@
     <item android:id="@+id/additem"
 android:icon="@drawable/ic_baseline_add_circle_outline_24"
         android:title="Add Item"/>
-    <item android:id="@+id/updateitem"
-        android:icon="@drawable/ic_baseline_update_24"
-        android:title="Update Item"/>
+<!--    <item android:id="@+id/updateitem"-->
+<!--        android:icon="@drawable/ic_baseline_update_24"-->
+<!--        android:title="Update Item"/>-->
     <item android:id="@+id/profile"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="Profile" />
