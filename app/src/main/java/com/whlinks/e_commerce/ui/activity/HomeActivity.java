@@ -28,6 +28,7 @@ import com.whlinks.e_commerce.R;
 import com.whlinks.e_commerce.ui.auth.LoginActivity;
 import com.whlinks.e_commerce.ui.fragments.AddItemFragment;
 import com.whlinks.e_commerce.ui.fragments.AllItemsAdminFragment;
+import com.whlinks.e_commerce.ui.fragments.DashboardFragment;
 import com.whlinks.e_commerce.ui.fragments.RemoveItemFragment;
 import com.whlinks.e_commerce.ui.fragments.RemoveLatestItemFragment;
 import com.whlinks.e_commerce.ui.fragments.RemoveTopItemsFragment;
@@ -69,9 +70,9 @@ public class HomeActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
 
         if (savedInstanceState == null) {
-            setTitle("Home");
+            setTitle("Dashboard");
             getSupportFragmentManager().
-                    beginTransaction().replace(frame, new HomeFragment()).commit();
+                    beginTransaction().replace(frame, new DashboardFragment()).commit();
         }
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -80,9 +81,9 @@ public class HomeActivity extends AppCompatActivity {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 switch (item.getItemId()) {
                     case home:
-                        setTitle("Home");
+                        setTitle("Dashboard");
                         fragmentManager.
-                                beginTransaction().replace(frame, new HomeFragment()).commit();
+                                beginTransaction().replace(frame, new DashboardFragment()).commit();
                         break;
                     case allItemsAdmin:
                         setTitle("All Items");

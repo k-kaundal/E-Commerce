@@ -10,7 +10,7 @@
         android:layout_height="250dp"
         android:layout_gravity="center"
         android:layout_margin="20dp"
-        android:src="@drawable/image_placeholder"
+        android:src="@drawable/profile"
         android:id="@+id/profileImage"/>
 
     <androidx.cardview.widget.CardView

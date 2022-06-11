@@ -24,7 +24,7 @@
             android:id="@+id/userImage"
             android:layout_height="200dp"
             android:layout_alignTop="@+id/register_background_image"
-            android:src="@drawable/image_placeholder"/>
+            android:src="@drawable/profile"/>
         <TextView
             android:id="@+id/registertext"
             android:layout_width="match_parent"
