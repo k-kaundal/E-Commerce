@@ -14,13 +14,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.whlinks.e_commerce.SplashScreenActivity;
 import com.whlinks.e_commerce.models.Item;
 import com.whlinks.e_commerce.models.Users;
 import com.whlinks.e_commerce.ui.activity.HomeActivity;
 import com.whlinks.e_commerce.ui.activity.user.UserHomeActivity;
+import com.whlinks.e_commerce.ui.auth.LoginActivity;
 
 import java.util.UUID;
 
@@ -46,7 +49,7 @@ public class CommonDBCall {
                         firebaseFirestore.collection("User").document(firebaseUser.getUid()).set(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                Intent intent = new Intent(context, HomeActivity.class);
+                                Intent intent = new Intent(context, UserHomeActivity.class);
                                 context.startActivity(intent);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -80,11 +83,10 @@ public class CommonDBCall {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isComplete()) {
                     // Storing data into SharedPreferences
-                    if (save == 1) {
-                        SharedPreferences sharedPreferences = context.getSharedPreferences("login", Context.MODE_PRIVATE);
+                    SharedPreferences sharedPreferences = context.getSharedPreferences("login", Context.MODE_PRIVATE);
 // Creating an Editor object to edit(write to the file)
-                        SharedPreferences.Editor myEdit = sharedPreferences.edit();
-
+                    SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                    if (save == 1) {
 // Storing the key and its value as the data fetched from edittext
                         myEdit.putString("email", email);
                         myEdit.putString("password", password);
@@ -92,10 +94,33 @@ public class CommonDBCall {
 // we need to commit to apply those changes made,
 // otherwise, it will throw an error
                         myEdit.commit();
+                    }else {
+                        myEdit.clear();
                     }
 
-                    Intent intent = new Intent(context, HomeActivity.class);
-                    context.startActivity(intent);
+
+//            assert user != null;
+                        firebaseFirestore.collection("User").document(mAuth.getUid().toString()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                DocumentSnapshot documentSnapshots = task.getResult();
+                        int        userType = Integer.parseInt(documentSnapshots.get("userType").toString());
+                                if (userType == 1) {
+                                    Intent intent = new Intent(context, UserHomeActivity.class);
+                                    context.startActivity(intent);
+//                                    context.finish();
+                                } else if (userType == 0) {
+                                    Intent intent = new Intent(context, HomeActivity.class);
+                                    context.startActivity(intent);
+//                                    finish();
+                                } else {
+                                    Intent intent = new Intent(context, LoginActivity.class);
+                                    context.startActivity(intent);
+//                                    finish();
+                                }
+
+                            }
+                        });
 
                 }
             }
